@@ -1,13 +1,15 @@
 package main
 
 import (
+	"time"
+
 	"github.com/HighwayToVictory/stallion-test/internal/consumer"
 	"github.com/HighwayToVictory/stallion-test/internal/provider"
 	"github.com/HighwayToVictory/stallion-test/internal/server"
 )
 
 const (
-	numberOfConsumers = 2
+	numberOfConsumers = 20
 	numberOfProviders = 2
 )
 
@@ -28,6 +30,8 @@ func main() {
 
 		go c.Start()
 	}
+
+	time.Sleep(2 * time.Second)
 
 	for i := 0; i < numberOfProviders; i++ {
 		p := provider.Provider{
