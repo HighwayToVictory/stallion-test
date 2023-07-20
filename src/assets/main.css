@@ -8,3 +8,19 @@ body, #app, .container {
   min-height: 100vh;
   min-height: -webkit-fill-available;
 }
+
+.out-bg {
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  right: -350px;
+  width: 800px;
+  height: 900px;
+  color: #ffffff;
+  padding: 250px 0 0 60px;
+  transform: rotate(20deg);
+}
+
+.out-bg > svg {
+  transform: rotate(-20deg);
+}

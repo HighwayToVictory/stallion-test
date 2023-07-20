@@ -1,7 +1,7 @@
 <template>
   <div style="margin-top: 150px;">
-    <form class="w-25 mx-auto">
-      <div class="mb-5 h2">
+    <form class="w-50 mx-auto border rounded" style="padding: 50px 90px;">
+      <div class="mb-5 h2 border-bottom pb-3">
         APT Login
       </div>
       <div class="form-outline mb-4">
@@ -49,7 +49,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>
