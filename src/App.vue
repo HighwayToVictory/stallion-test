@@ -12,7 +12,7 @@ const authStore = useAuthStore();
       <div class="col-2 p-0 m-0" style="min-height: -webkit-fill-available;">
         <Navigation v-if="authStore.token" />
       </div>
-      <div class="col-10" style="min-height: -webkit-fill-available;">
+      <div v-bind:class="'col-10' ? authStore.token : 'col-12'" style="min-height: -webkit-fill-available;">
         <RouterView />
       </div>
     </div>

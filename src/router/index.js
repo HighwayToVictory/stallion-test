@@ -45,7 +45,7 @@ router.beforeEach((to, from, next) => {
     } else {
       let parts = JSON.parse(atob(authStore.token.split('.')[1]));
 
-      if (parts['exp'] < Date.now()) {
+      if (parts['exp'] < Date.now() / 1000) {
         authStore.logout();
       }
 
