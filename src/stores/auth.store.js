@@ -24,6 +24,7 @@ export const useAuthStore = defineStore({
         },
         logout() {
             this.user = null;
+            this.returnUrl = '/';
 
             localStorage.removeItem('jwt');
 

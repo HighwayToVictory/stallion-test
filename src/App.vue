@@ -14,11 +14,11 @@ const authStore = useAuthStore();
         <path d="M9.5 6.5a1.5 1.5 0 0 1-1 1.415l.385 1.99a.5.5 0 0 1-.491.595h-.788a.5.5 0 0 1-.49-.595l.384-1.99a1.5 1.5 0 1 1 2-1.415z"/>
       </svg>
     </div>
-    <div class="p-0 m-0" style="min-height: -webkit-fill-available;">
+    <div class="row p-0 m-0" style="min-height: -webkit-fill-available;">
       <div class="col-2 p-0 m-0" style="min-height: -webkit-fill-available;">
-        <Navigation v-if="authStore.token"   />
+        <Navigation v-if="authStore.token" />
       </div>
-      <div class="col-10" style="min-height: -webkit-fill-available;">
+      <div v-bind:class="authStore.token ? 'col-10' : 'col-7'" style="min-height: -webkit-fill-available;">
         <RouterView />
       </div>
     </div>

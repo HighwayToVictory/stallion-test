@@ -1,6 +1,6 @@
 <template>
   <div style="margin-top: 150px;">
-    <form class="w-50 mx-auto border rounded" style="padding: 50px 90px;">
+    <form class="w-50 mx-auto border rounded" style="padding: 50px 60px;">
       <div class="mb-5 h2 border-bottom pb-3">
         APT Login
       </div>
