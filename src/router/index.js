@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useAuthStore } from '@/stores';
 
 import HomeView from '../views/HomeView/index.vue'
 import LoginView from '../views/LoginView/index.vue'
@@ -32,20 +33,20 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (localStorage.getItem('jwt') == null) {
+    const authStore = useAuthStore();
+
+    if (!authStore.token) {
+      authStore.returnUrl = to.fullPath;
+
       next({
         path: '/login',
         params: { nextUrl: to.fullPath }
       });
     } else {
-      let token = localStorage.getItem('jwt');
-      let parts = JSON.parse(atob(token.split('.')[1]));
+      let parts = JSON.parse(atob(authStore.token.split('.')[1]));
 
       if (parts['exp'] < Date.now()) {
-        next({
-          path: '/login',
-          params: { nextUrl: to.fullPath }
-        });
+        authStore.logout();
       }
 
       next();
@@ -55,4 +56,4 @@ router.beforeEach((to, from, next) => {
   next();
 })
 
-export default router
+export default router;
