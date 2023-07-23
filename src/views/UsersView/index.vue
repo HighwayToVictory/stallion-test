@@ -1,6 +1,6 @@
 <script setup>
 import { RouterLink } from 'vue-router'
-import { enumUtils, parser } from '@utils';
+import { enumUtils, parser } from '@/utils';
 </script>
 
 <template>
@@ -32,7 +32,7 @@ import { enumUtils, parser } from '@utils';
             {{ user['username'] }}
           </td>
           <td class="p-3">
-            {{ enumUtils.convertRoleToString(user['role']) }}
+            {{ enumUtils.role(user['role']) }}
           </td>
           <td class="p-3">
             {{ parser.parseDate(user['created_at']) }}
@@ -54,8 +54,6 @@ import { enumUtils, parser } from '@utils';
 <script>
 import { usersApi } from '@/api';
 
-import router from '@/router';
-
 export default {
   data() {
     return {
@@ -65,12 +63,11 @@ export default {
   methods: {
     async deleteUser(id) {
       await usersApi.remove(id);
-
-      router.go('/users');
+      this.users = await usersApi.get();
     }
   },
   async mounted() {
-    this.users = await get();
+    this.users = await usersApi.get();
   }
 }
 </script>

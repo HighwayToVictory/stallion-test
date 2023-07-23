@@ -4,7 +4,7 @@
       Create User
     </div>
     <div class="form-outline mb-4">
-      <input type="text" id="username" class="form-control" placeholder="admin ..." />
+      <input type="text" v-model="username" class="form-control" placeholder="admin ..." />
       <label class="form-label" for="username">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi me-2 bi-person-fill" viewBox="0 0 16 16">
           <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
@@ -13,7 +13,7 @@
       </label>
     </div>
     <div class="form-outline mb-4">
-      <input type="password" id="password" class="form-control" placeholder="password ..." />
+      <input type="password" v-model="password" class="form-control" placeholder="password ..." />
       <label class="form-label" for="password">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi me-2 bi-key-fill" viewBox="0 0 16 16">
           <path d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2zM2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
@@ -22,7 +22,7 @@
       </label>
     </div>
     <div class="form-outline mb-4">
-      <select id="role" class="form-control">
+      <select v-model="role" class="form-control">
         <option value="1">Admin</option>
         <option value="2">Developer</option>
         <option value="3">Viewer</option>
@@ -49,16 +49,20 @@ import { usersApi } from '@/api';
 import router from '@/router';
 
 export default {
+  data() {
+    return {
+      username: "",
+      password: "",
+      role: "1",
+    }
+  },
   methods: {
     async createUser() {
-      let name = document.getElementById("username").value;
-      let pass = document.getElementById("password").value;
-      let role = parseInt(document.getElementById("role").value);
+      await usersApi.create(this.username, this.password, parseInt(this.role));
 
-      await usersApi.create(name, pass, role);
-
-      document.getElementById("username").value = '';
-      document.getElementById("password").value = '';
+      this.username = "";
+      this.password = "";
+      this.role = "1";
 
       router.push('/users');
     }

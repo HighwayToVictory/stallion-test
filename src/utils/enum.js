@@ -1,8 +1,8 @@
 export const enumUtils = {
-    role: convertRoleToString()
+    role: convert()
 }
 
-function convertRoleToString() {
+function convert() {
     return (input) => {
         switch (input) {
             case 1:

@@ -39,7 +39,7 @@ export const useAuthStore = defineStore({
 
             localStorage.removeItem('jwt');
 
-            router.go('/login');
+            router.push('/login');
         }
     }
 });
