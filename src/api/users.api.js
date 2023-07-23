@@ -5,7 +5,8 @@ const baseUrl = `${import.meta.env.VITE_API_URL}/admin/users`;
 
 export const usersApi = {
     get: get(),
-    remove: remove()
+    remove: remove(),
+    create: create()
 };
 
 function get() {
@@ -17,5 +18,11 @@ function get() {
 function remove() {
     return async (id) => {
         await fetchWrapper.delete(`${baseUrl}/${id}`);
+    }
+}
+
+function create() {
+    return async (username, password, role) => {
+        await fetchWrapper.post(`${baseUrl}`, {"username": username, "password": password, "role": role});
     }
 }

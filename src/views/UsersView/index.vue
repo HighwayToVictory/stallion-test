@@ -1,5 +1,6 @@
 <script setup>
 import { RouterLink } from 'vue-router'
+import { enumUtils, parser } from '@utils';
 </script>
 
 <template>
@@ -31,10 +32,10 @@ import { RouterLink } from 'vue-router'
             {{ user['username'] }}
           </td>
           <td class="p-3">
-            {{ convertRoleToString(user['role']) }}
+            {{ enumUtils.convertRoleToString(user['role']) }}
           </td>
           <td class="p-3">
-            {{ parseDate(user['created_at']) }}
+            {{ parser.parseDate(user['created_at']) }}
           </td>
           <td>
             <button v-on:click="deleteUser(user['id'])" class="btn btn-danger text-left">
@@ -62,21 +63,6 @@ export default {
     }
   },
   methods: {
-    convertRoleToString(input) {
-      switch (input) {
-        case 1:
-          return "Admin";
-        case 2:
-          return "Developer";
-        case 3:
-          return "Viewer";
-      }
-    },
-    parseDate(input) {
-      let d = new Date(input);
-
-      return d.getFullYear() + " / " + d.getUTCMonth() + " / " + d.getDate();
-    },
     async deleteUser(id) {
       await usersApi.remove(id);
 

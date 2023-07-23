@@ -45,10 +45,8 @@
 </template>
 
 <script>
-import { fetchWrapper } from '@/helpers';
+import { usersApi } from '@/api';
 import router from '@/router';
-
-const baseUrl = `${import.meta.env.VITE_API_URL}/admin/users`;
 
 export default {
   methods: {
@@ -57,7 +55,7 @@ export default {
       let pass = document.getElementById("password").value;
       let role = parseInt(document.getElementById("role").value);
 
-      await fetchWrapper.post(`${baseUrl}`, {"username": name, "password": pass, "role": role});
+      await usersApi.create(name, pass, role);
 
       document.getElementById("username").value = '';
       document.getElementById("password").value = '';
