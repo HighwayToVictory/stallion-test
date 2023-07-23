@@ -59,6 +59,9 @@ export default {
 
       await fetchWrapper.post(`${baseUrl}`, {"username": name, "password": pass, "role": role});
 
+      document.getElementById("username").value = '';
+      document.getElementById("password").value = '';
+
       router.push('/users');
     }
   }
