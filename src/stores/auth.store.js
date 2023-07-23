@@ -12,6 +12,15 @@ export const useAuthStore = defineStore({
         returnUrl: null
     }),
     actions: {
+        username() {
+            return JSON.parse(atob(this.token.split('.')[1]))['name'];
+        },
+        admin() {
+            return JSON.parse(atob(this.token.split('.')[1]))['role'] === 1;
+        },
+        user() {
+            return JSON.parse(atob(this.token.split('.')[1]))['role'] === 2;
+        },
         async login(username, password) {
             const data = await fetchWrapper.post(`${baseUrl}`, {'username':username,'password':password});    
             const token = data['token'];

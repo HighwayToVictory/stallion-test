@@ -53,8 +53,6 @@ export default {
   },
   methods: {
     convertRoleToString(input) {
-      console.log(input);
-
       switch (input) {
         case 1:
           return "Admin";
