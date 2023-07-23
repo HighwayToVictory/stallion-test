@@ -51,10 +51,9 @@ import { RouterLink } from 'vue-router'
 </template>
 
 <script>
-import { fetchWrapper } from '@/helpers';
-import router from '@/router';
+import { usersApi } from '@/api';
 
-const baseUrl = `${import.meta.env.VITE_API_URL}/admin/users`;
+import router from '@/router';
 
 export default {
   data() {
@@ -79,15 +78,13 @@ export default {
       return d.getFullYear() + " / " + d.getUTCMonth() + " / " + d.getDate();
     },
     async deleteUser(id) {
-      await fetchWrapper.delete(`${baseUrl}/${id}`);
+      await usersApi.remove(id);
 
       router.go('/users');
     }
   },
   async mounted() {
-    const users = await fetchWrapper.get(`${baseUrl}`);
-
-    this.users = users;
+    this.users = await get();
   }
 }
 </script>

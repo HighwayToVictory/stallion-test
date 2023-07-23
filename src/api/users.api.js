@@ -9,13 +9,13 @@ export const usersApi = {
 };
 
 function get() {
-    return () => {
-        // todo: return users
+    return async () => {
+        return fetchWrapper.get(baseUrl);
     }
 }
 
 function remove() {
-    return (id) => {
-        // todo: delete user
+    return async (id) => {
+        await fetchWrapper.delete(`${baseUrl}/${id}`);
     }
 }
