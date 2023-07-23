@@ -1,11 +1,13 @@
 import { useAuthStore } from '@/stores';
 
+
 export const fetchWrapper = {
     get: request('GET'),
     post: request('POST'),
     put: request('PUT'),
     delete: request('DELETE')
 };
+
 
 function request(method) {
     return (url, body) => {
@@ -42,15 +44,15 @@ async function handleResponse(response) {
     const isJson = response.headers?.get('content-type')?.includes('application/json');
     const data = isJson ? await response.json() : null;
 
-    // check for error response
     if (!response.ok) {
         const { user, logout } = useAuthStore();
+        
         if ([401, 403].includes(response.status) && user) {
             logout();
         }
 
-        // get error message from body or default to response status
         const error = (data && data.message) || response.status;
+
         return Promise.reject(error);
     }
 
