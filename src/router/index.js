@@ -30,7 +30,7 @@ const router = createRouter({
         requiresAuth: true
       }
     },
-    { ...usersRoutes }
+    ...usersRoutes,
   ]
 })
 
