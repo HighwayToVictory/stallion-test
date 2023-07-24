@@ -1,16 +1,88 @@
-<script setup>
-import { useRoute } from 'vue-router'
-
-const route = useRoute();
-</script>
-
 <template>
-  {{ "Edit " + route.params.id }}
+  <div class="p-5">
+    <div class="h1 border-bottom pb-2 mb-5">
+      Updating namespace `{{ namespace.name }}`
+    </div>
+    <button v-on:click="update" type="button" class="btn btn-primary btn-block mb-5">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi me-2 bi-box-arrow-in-right" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>
+          <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+        </svg>
+        Update
+    </button>
+    <div class="row">
+      <div class="col">
+        <div class="h3 border-bottom pb-2 mb-2">
+          Namespace Users
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item d-flex justify-content-between align-items-center" v-for="user in namespace.users" :key="user['id']">
+            {{ user['name'] || user['username'] }}
+            <span class="badge bg-danger" v-on:click="remove(user)">remove</span>
+          </li>
+        </ul>
+      </div>
+      <div class="col">
+        <div class="h3 border-bottom pb-2 mb-2">
+          Other Users
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item d-flex justify-content-between align-items-center" v-for="user in users" :key="user['id']">
+            {{ user['username'] || user['name'] }}
+            <span class="badge bg-primary" v-on:click="add(user)">add</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-export default {
+import { namespacesApi, usersApi } from '@/api';
+import { useRoute } from 'vue-router'
 
+export default {
+  data() {
+    return {
+      namespace: "",
+      users: [],
+    }
+  },
+  methods: {
+    add(user) {
+      const index = this.users.indexOf(user);
+
+      if (index > -1) {
+        this.users.splice(index, 1);
+      }
+
+      this.namespace.users.push(user);
+    },
+    remove(user) {
+      const index = this.namespace.users.indexOf(user);
+
+      if (index > -1) {
+        this.namespace.users.splice(index, 1);
+      }
+
+      this.users.push(user);
+    },
+    async update() {
+      let ids = [];
+
+      this.namespace.users.forEach((user) => {
+        ids.unshift(user.id);
+      })
+
+      await namespacesApi.update(route.params.id, this.namespace.users);
+    }
+  },
+  async mounted() {
+    const route = useRoute();
+
+    this.namespace = await namespacesApi.getSingle(route.params.id);
+    this.users = await usersApi.get();
+  }
 }
 </script>
 

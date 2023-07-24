@@ -19,24 +19,24 @@ function get() {
 
 function create() {
     return async (name) => {
-        return fetchWrapper.post(baseUrl, {"name": name})
+        return fetchWrapper.post(baseUrl, {"name": name});
     }
 }
 
 function remove() {
     return async (id) => {
-        return fetchWrapper.delete(`${baseUrl}/${id}`)
+        return fetchWrapper.delete(`${baseUrl}/${id}`);
     }
 }
 
 function update() {
-    return async (id, user_id, flag) => {
-        return fetchWrapper.put(baseUrl, {"namespace_id": id, "user_id": user_id, "add": flag})
+    return async (id, user_ids) => {
+        return fetchWrapper.put(baseUrl, {"namespace_id": id, "user_ids": user_ids});
     }
 }
 
 function getSingle() {
     return async (id) => {
-        // todo: update api
+        return fetchWrapper.get(`${baseUrl}/${id}`);
     }
 }
