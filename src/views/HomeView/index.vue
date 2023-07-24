@@ -7,7 +7,7 @@ import { parser } from '@/utils';
     <div class="h1 border-bottom pb-2 mb-5">
       Welcome `{{ user }}`
     </div>
-    <div>
+    <div class="mb-5">
       <div class="d-flex justify-content-between align-items-center mb-4" v-for="item in namespaces" :key="item.id">
         <span class="badge bg-secondary" v-on:click="select(item)">
           {{ item.name }}
@@ -22,6 +22,11 @@ import { parser } from '@/utils';
         </span>
       </div>
     </div>
+    <div v-if="this.namespace != null">
+      <div class="h3 mb-5 border-bottom pb-2">
+        Projects
+      </div>
+    </div>
   </div>
 </template>
 
@@ -34,6 +39,7 @@ export default {
     return {
       user: "",
       namespaces: [],
+      projects: [],
       namespace: null
     }
   },
