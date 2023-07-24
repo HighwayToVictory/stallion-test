@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { usersApi } from '@/api';
+import { adminUsersApi } from '@/api';
 import router from '@/router';
 
 export default {
@@ -58,7 +58,7 @@ export default {
   },
   methods: {
     async createUser() {
-      await usersApi.create(this.username, this.password, parseInt(this.role));
+      await adminUsersApi.create(this.username, this.password, parseInt(this.role));
 
       this.username = "";
       this.password = "";
@@ -69,7 +69,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>

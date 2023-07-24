@@ -1,6 +1,7 @@
 import UsersView from '../views/UsersView/index.vue'
 import CreateUser from '../views/UsersView/views/CreateUserView.vue'
 
+
 export default [
     {
         path: '/users',

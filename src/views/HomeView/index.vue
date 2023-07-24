@@ -86,7 +86,7 @@ const authStore = useAuthStore();
 
 <script>
 import { useAuthStore } from '@/stores'
-import { viewApi, projectsApi } from '@/api';
+import { projectsApi, namespacesApi, userProjectsApi } from '@/api';
 
 export default {
   data() {
@@ -105,7 +105,7 @@ export default {
       this.projects = tmp.projects;
     },
     async deleteProject(id) {
-      await projectsApi.remove(this.namespace.id, id);
+      await userProjectsApi.remove(this.namespace.id, id);
       this.projects = await projectsApi.get(this.namespace.id);
     }
   },
@@ -114,7 +114,7 @@ export default {
 
     this.user = authStore.username();
 
-    this.namespaces = await viewApi.get();
+    this.namespaces = await namespacesApi.get();
 
     if (this.namespaces.length > 0) {
       this.namespace = this.namespaces[0];
@@ -132,7 +132,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>

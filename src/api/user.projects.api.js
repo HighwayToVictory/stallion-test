@@ -1,35 +1,29 @@
 import { fetchWrapper } from '@/helpers';
 
-const baseUrl = `${import.meta.env.VITE_API_URL}`;
+const baseUrl = `${import.meta.env.VITE_API_URL}/user/namespaces`;
 
 
-export const projectsApi = {
-    get: get(),
+// userProjectsApi manages the projects crud by users group
+export const userProjectsApi = {
     create: create(),
-    remove: remove(),
-    getSingle: getSingle()
+    remove: remove()
 };
 
-function get() {
-    return async (namespace_id) => {
-        return fetchWrapper.get(`${baseUrl}/namespaces/${namespace_id}`);
-    }
-}
-
-function getSingle() {
-    return async (namespace_id, project_id) => {
-        return fetchWrapper.get(`${baseUrl}/namespaces/${namespace_id}/projects/${project_id}`);
-    }
-}
-
+// create a new project
 function create() {
     return async (namespace_id, name, host) => {
-        return fetchWrapper.post(`${baseUrl}/user/namespaces/${namespace_id}/projects`, {"name": name, "host": host});
+        const body = {
+            "name": name,
+            "host": host
+        };
+
+        return fetchWrapper.post(`${baseUrl}/${namespace_id}/projects`, body);
     }
 }
 
+// remove a project
 function remove() {
     return async (namespace_id, project_id) => {
-        return fetchWrapper.delete(`${baseUrl}/user/namespaces/${namespace_id}/projects/${project_id}`);
+        return fetchWrapper.delete(`${baseUrl}/${namespace_id}/projects/${project_id}`);
     }
 }

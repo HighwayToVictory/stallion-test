@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { namespacesApi } from '@/api';
+import { adminNamespacesApi } from '@/api';
 import router from '@/router';
 
 export default {
@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     async createNamespace() {
-      await namespacesApi.create(this.name);
+      await adminNamespacesApi.create(this.name);
 
       this.name = "";
 

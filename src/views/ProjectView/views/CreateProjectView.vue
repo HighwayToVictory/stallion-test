@@ -51,9 +51,7 @@
 </template>
 
 <script>
-import { namespacesApi } from '@/api';
-import { viewApi, projectsApi } from '@/api';
-
+import { projectsApi, userProjectsApi } from '@/api';
 import router from '@/router';
 
 export default {
@@ -67,7 +65,7 @@ export default {
   },
   methods: {
     async createProject() {
-      await projectsApi.create(this.namespace.id, this.name, this.host);
+      await userProjectsApi.create(this.namespace.id, this.name, this.host);
 
       this.name = "";
       this.host = "";
@@ -76,12 +74,8 @@ export default {
     }
   },
   async mounted() {
-    this.namespaces = await viewApi.get();
+    this.namespaces = await projectsApi.get();
     this.namespace = this.namespaces[0];
   }
 }
 </script>
-
-<style>
-
-</style>

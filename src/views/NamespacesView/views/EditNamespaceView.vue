@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import { namespacesApi, usersApi } from '@/api';
+import { adminNamespacesApi, adminUsersApi } from '@/api';
 import { useRoute } from 'vue-router'
 
 export default {
@@ -90,15 +90,15 @@ export default {
         ids.unshift(user.id);
       })
 
-      await namespacesApi.update(parseInt(this.namespace_id), ids);
+      await adminNamespacesApi.update(parseInt(this.namespace_id), ids);
     }
   },
   async mounted() {
     const route = useRoute();
 
     this.namespace_id = route.params.id;
-    this.namespace = await namespacesApi.getSingle(this.namespace_id);
-    this.users = await usersApi.get();
+    this.namespace = await adminNamespacesApi.getSingle(this.namespace_id);
+    this.users = await adminUsersApi.get();
 
 
     this.namespace.users.forEach((user) => {
@@ -117,7 +117,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>

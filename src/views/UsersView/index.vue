@@ -60,7 +60,7 @@ import { enumUtils, parser } from '@/utils';
 </template>
 
 <script>
-import { usersApi } from '@/api';
+import { adminUsersApi } from '@/api';
 
 export default {
   data() {
@@ -70,16 +70,12 @@ export default {
   },
   methods: {
     async deleteUser(id) {
-      await usersApi.remove(id);
-      this.users = await usersApi.get();
+      await adminUsersApi.remove(id);
+      this.users = await adminUsersApi.get();
     }
   },
   async mounted() {
-    this.users = await usersApi.get();
+    this.users = await adminUsersApi.get();
   }
 }
 </script>
-
-<style>
-
-</style>

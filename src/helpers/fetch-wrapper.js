@@ -1,6 +1,7 @@
 import { useAuthStore } from '@/stores';
 
 
+// fetchWrapper is used to make http requests
 export const fetchWrapper = {
     get: request('GET'),
     post: request('POST'),
@@ -9,6 +10,7 @@ export const fetchWrapper = {
 };
 
 
+// create http request
 function request(method) {
     return (url, body) => {
         const requestOptions = {
@@ -26,7 +28,6 @@ function request(method) {
 }
 
 // helper functions
-
 function authHeader(url) {
     const { token } = useAuthStore();
 
@@ -40,6 +41,7 @@ function authHeader(url) {
     }
 }
 
+// handle response
 async function handleResponse(response) {
     const isJson = response.headers?.get('content-type')?.includes('application/json');
     const data = isJson ? await response.json() : null;

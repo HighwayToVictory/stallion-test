@@ -1,12 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores';
 
+
 import usersRoutes from './users.routes';
 import namespaceRoute from './namespace.route';
 import projectRoute from './project.route';
 
+
 import HomeView from '../views/HomeView/index.vue'
 import LoginView from '../views/LoginView/index.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,7 +41,7 @@ const router = createRouter({
   ]
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     const authStore = useAuthStore();
 
@@ -62,5 +65,6 @@ router.beforeEach((to, from, next) => {
   
   next();
 })
+
 
 export default router;

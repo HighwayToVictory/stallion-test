@@ -61,7 +61,7 @@ import { parser } from '@/utils';
 </template>
 
 <script>
-import { namespacesApi } from '@/api';
+import { adminNamespacesApi } from '@/api';
 
 export default {
   data() {
@@ -71,12 +71,12 @@ export default {
   },
   methods: {
     async deleteNamespace(id) {
-      await namespacesApi.remove(id);
-      this.namespaces = await namespacesApi.get();
+      await adminNamespacesApi.remove(id);
+      this.namespaces = await adminNamespacesApi.get();
     }
   },
   async mounted() {
-    this.namespaces = await namespacesApi.get();
+    this.namespaces = await adminNamespacesApi.get();
   }
 }
 </script>
