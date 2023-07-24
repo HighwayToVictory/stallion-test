@@ -11,8 +11,8 @@ export const projectsApi = {
 };
 
 function get() {
-    return async (id) => {
-        return fetchWrapper.get(`${baseUrl}/namespaces/${id}`);
+    return async (namespace_id) => {
+        return fetchWrapper.get(`${baseUrl}/namespaces/${namespace_id}`);
     }
 }
 
