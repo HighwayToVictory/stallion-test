@@ -1,5 +1,9 @@
+<script setup>
+import { router } from '@/router';
+</script>
+
 <template>
-  Edit
+  {{ "Edit " + router.params.id }}
 </template>
 
 <script>
