@@ -17,8 +17,13 @@
         </div>
         <ul class="list-group list-group-flush">
           <li class="list-group-item d-flex justify-content-between align-items-center" v-for="user in namespace.users" :key="user['id']">
-            {{ user['name'] || user['username'] }}
-            <span class="badge bg-danger" v-on:click="remove(user)">remove</span>
+            {{ user['username'] }}
+            <span class="badge bg-danger" v-on:click="remove(user)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi me-2 bi-dash" viewBox="0 0 16 16">
+                <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+              </svg>
+              remove
+            </span>
           </li>
         </ul>
       </div>
@@ -28,8 +33,13 @@
         </div>
         <ul class="list-group list-group-flush">
           <li class="list-group-item d-flex justify-content-between align-items-center" v-for="user in users" :key="user['id']">
-            {{ user['username'] || user['name'] }}
-            <span class="badge bg-primary" v-on:click="add(user)">add</span>
+            {{ user['username'] }}
+            <span class="badge bg-primary" v-on:click="add(user)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi me-2 bi-plus-lg" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+              </svg>
+              add
+            </span>
           </li>
         </ul>
       </div>
@@ -84,6 +94,21 @@ export default {
     this.namespace_id = route.params.id;
     this.namespace = await namespacesApi.getSingle(this.namespace_id);
     this.users = await usersApi.get();
+
+
+    this.namespace.users.forEach((user) => {
+      var index = -1
+
+      this.users.forEach((el, i) => {
+        if (el.id === user.id) {
+          index = i;
+        }
+      });
+
+      if (index > -1) {
+        this.users.splice(index, 1);
+      }
+    })
   }
 }
 </script>
