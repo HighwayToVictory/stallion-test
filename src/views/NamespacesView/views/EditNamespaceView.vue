@@ -44,6 +44,7 @@ import { useRoute } from 'vue-router'
 export default {
   data() {
     return {
+      namespace_id: 0,
       namespace: "",
       users: [],
     }
@@ -74,13 +75,14 @@ export default {
         ids.unshift(user.id);
       })
 
-      await namespacesApi.update(route.params.id, this.namespace.users);
+      await namespacesApi.update(parseInt(this.namespace_id), ids);
     }
   },
   async mounted() {
     const route = useRoute();
 
-    this.namespace = await namespacesApi.getSingle(route.params.id);
+    this.namespace_id = route.params.id;
+    this.namespace = await namespacesApi.getSingle(this.namespace_id);
     this.users = await usersApi.get();
   }
 }
