@@ -1,9 +1,11 @@
 <script setup>
-import { router } from '@/router';
+import { useRoute } from 'vue-router'
+
+const route = useRoute();
 </script>
 
 <template>
-  {{ "Edit " + router.params.id }}
+  {{ "Edit " + route.params.id }}
 </template>
 
 <script>
