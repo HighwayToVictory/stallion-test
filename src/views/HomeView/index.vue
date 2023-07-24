@@ -36,9 +36,43 @@ import { parser } from '@/utils';
         </div>
       </div>
       <div v-if="this.projects.length > 0" class="overflow-auto" style="height: 300px;">
-        <div v-for="project in projects" :key="project.id">
-          {{ project.name }}
-        </div>
+        <table class="table border table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Host</th>
+              <th scope="col">Created at</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="project in projects" v-bind:key="project['id']">
+              <td class="p-3">
+                {{ project['name'] }}
+              </td>
+              <td class="p-3">
+                {{ project['host'] }}
+              </td>
+              <td class="p-3">
+                {{ parser.parseDate(project['created_at']) }}
+              </td>
+              <td class="p-3">
+                <button v-on:click="deleteUser(user['id'])" class="btn btn-danger btn-sm text-left" style="margin-right: 5px;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi me-2 bi-person-x-fill" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6.146-2.854a.5.5 0 0 1 .708 0L14 6.293l1.146-1.147a.5.5 0 0 1 .708.708L14.707 7l1.147 1.146a.5.5 0 0 1-.708.708L14 7.707l-1.146 1.147a.5.5 0 0 1-.708-.708L13.293 7l-1.147-1.146a.5.5 0 0 1 0-.708z"/>
+                  </svg>
+                  delete project
+                </button>
+                <button v-on:click="deleteUser(user['id'])" class="btn btn-primary btn-sm text-left">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi me-2 bi-person-x-fill" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6.146-2.854a.5.5 0 0 1 .708 0L14 6.293l1.146-1.147a.5.5 0 0 1 .708.708L14.707 7l1.147 1.146a.5.5 0 0 1-.708.708L14 7.707l-1.146 1.147a.5.5 0 0 1-.708-.708L13.293 7l-1.147-1.146a.5.5 0 0 1 0-.708z"/>
+                  </svg>
+                  view project
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <div v-else>
         No projects!
@@ -64,6 +98,8 @@ export default {
     async select(namespace) {
       this.namespace = namespace;
       this.projects = await projectsApi.get(this.namespace.id);
+
+      console.log(this.projects);
     }
   },
   async mounted() {
@@ -75,7 +111,9 @@ export default {
 
     if (this.namespaces.length > 0) {
       this.namespace = this.namespaces[0];
-      this.projects = await projectsApi.get(this.namespace.id);
+
+      let tmp = await projectsApi.get(this.namespace.id);
+      this.projects = tmp.projects;
     }
   }
 }
