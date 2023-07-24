@@ -57,13 +57,13 @@ import { parser } from '@/utils';
                 {{ parser.parseDate(project['created_at']) }}
               </td>
               <td class="p-3">
-                <button v-on:click="deleteUser(user['id'])" class="btn btn-danger btn-sm text-left" style="margin-right: 5px;">
+                <button v-on:click="deleteProject(project['id'])" class="btn btn-danger btn-sm text-left" style="margin-right: 5px;">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi me-2 bi-person-x-fill" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6.146-2.854a.5.5 0 0 1 .708 0L14 6.293l1.146-1.147a.5.5 0 0 1 .708.708L14.707 7l1.147 1.146a.5.5 0 0 1-.708.708L14 7.707l-1.146 1.147a.5.5 0 0 1-.708-.708L13.293 7l-1.147-1.146a.5.5 0 0 1 0-.708z"/>
                   </svg>
                   delete project
                 </button>
-                <button v-on:click="deleteUser(user['id'])" class="btn btn-primary btn-sm text-left">
+                <button class="btn btn-primary btn-sm text-left">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi me-2 bi-person-x-fill" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6.146-2.854a.5.5 0 0 1 .708 0L14 6.293l1.146-1.147a.5.5 0 0 1 .708.708L14.707 7l1.147 1.146a.5.5 0 0 1-.708.708L14 7.707l-1.146 1.147a.5.5 0 0 1-.708-.708L13.293 7l-1.147-1.146a.5.5 0 0 1 0-.708z"/>
                   </svg>
@@ -97,9 +97,13 @@ export default {
   methods: {
     async select(namespace) {
       this.namespace = namespace;
+      
+      let tmp = await projectsApi.get(this.namespace.id);
+      this.projects = tmp.projects;
+    },
+    async deleteProject(id) {
+      await projectsApi.remove(this.namespace.id, id);
       this.projects = await projectsApi.get(this.namespace.id);
-
-      console.log(this.projects);
     }
   },
   async mounted() {
@@ -114,6 +118,13 @@ export default {
 
       let tmp = await projectsApi.get(this.namespace.id);
       this.projects = tmp.projects;
+    }
+  },
+  watch: {
+    namespace: async function(n, o) {
+      if (n !== o) {
+        await this.select(n);
+      }
     }
   }
 }
