@@ -1,6 +1,6 @@
 import { fetchWrapper } from '@/helpers';
 
-const baseUrl = `${import.meta.env.VITE_API_URL}/namespace`;
+const baseUrl = `${import.meta.env.VITE_API_URL}/namespaces`;
 
 
 // projectsApi manages the projects get endpoints
