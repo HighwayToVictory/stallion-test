@@ -10,7 +10,7 @@
             <div>
                 Created By `{{ project.creator }}` at `{{ project.created_at }}`
             </div>
-            <div>
+            <div v-if="project.description">
                 About: {{ project.description }}
             </div>
             <div v-if="project.labels">
@@ -42,10 +42,7 @@ export default {
 
         this.namespace_id = route.params.namespace;
         this.project_id = route.params.id;
-
         this.project = await projectsApi.getSingle(this.namespace_id, this.project_id);
-
-        console.log(this.project.description);
     }
 }
 </script>
