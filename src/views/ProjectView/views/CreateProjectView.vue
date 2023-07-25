@@ -185,7 +185,7 @@ export default {
       name: "",
       host: "",
       port: 80,
-      secure: true,
+      secure: false,
       description: "",
       namespace: "",
       namespaces: [],
@@ -201,10 +201,16 @@ export default {
   },
   methods: {
     async createProject() {
-      await userProjectsApi.create(this.namespace.id, this.name, this.host);
+      await userProjectsApi.create(this.namespace.id, this.name, this.host, this.port, this.description, this.labels, this.params, this.endpoints, this.secure);
 
       this.name = "";
       this.host = "";
+      this.port = 80;
+      this.description = "";
+      this.labels = [];
+      this.params = [];
+      this.endpoints = [];
+      this.secure = false;
 
       router.push('/');
     },

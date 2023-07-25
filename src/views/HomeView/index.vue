@@ -106,7 +106,9 @@ export default {
     },
     async deleteProject(id) {
       await userProjectsApi.remove(this.namespace.id, id);
-      this.projects = await projectsApi.get(this.namespace.id);
+      
+      let tmp = await projectsApi.get(this.namespace.id);
+      this.projects = tmp.projects;
     }
   },
   async mounted() {

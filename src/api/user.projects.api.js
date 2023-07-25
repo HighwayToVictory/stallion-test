@@ -11,10 +11,16 @@ export const userProjectsApi = {
 
 // create a new project
 function create() {
-    return async (namespace_id, name, host) => {
+    return async (namespace_id, name, host, port, description, labels, params, endpoints, secure) => {
         const body = {
             "name": name,
-            "host": host
+            "host": host,
+            "port": port,
+            "description": description,
+            "http_secure": secure,
+            "labels": labels,
+            "params": params,
+            "endpoints": endpoints
         };
 
         return fetchWrapper.post(`${baseUrl}/${namespace_id}/projects`, body);
