@@ -60,7 +60,8 @@ const authStore = useAuthStore();
         </strong>
       </div>
       <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1" style="">
-        <li><RouterLink v-if="authStore.user() || authStore.admin()" to="/projects/new" class="dropdown-item" href="#">New project</RouterLink></li>
+        <li><RouterLink v-if="authStore.user() || authStore.admin()" to="/projects/new" class="dropdown-item">New project</RouterLink></li>
+        <li><RouterLink to="profile" class="dropdown-item">Profile</RouterLink></li>
         <li><hr class="dropdown-divider"></li>
         <li><a v-on:click="authStore.logout()" class="dropdown-item" href="#">Sign out</a></li>
       </ul>

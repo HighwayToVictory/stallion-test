@@ -24,6 +24,7 @@
 
 <script>
 import { userApi } from '@/api';
+import { useAuthStore } from '@/stores';
 
 export default {
     data() {
@@ -35,8 +36,9 @@ export default {
     methods: {
         async updateUser() {
             await userApi.update(this.username);
-
-            router.push('/');
+            
+            const authStore = useAuthStore();
+            authStore.logout()
         }
     },
     async mounted() {

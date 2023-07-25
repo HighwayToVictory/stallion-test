@@ -9,6 +9,7 @@ import projectRoute from './project.route';
 
 import HomeView from '../views/HomeView/index.vue'
 import LoginView from '../views/LoginView/index.vue'
+import Profile from '../views/UsersView/views/Profile.vue'
 
 
 const router = createRouter({
@@ -23,6 +24,13 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/profile',
+      component: Profile,
       meta: {
         requiresAuth: true
       }
