@@ -33,7 +33,7 @@ const authStore = useAuthStore();
             </div>
             <div class="mt-2 mb-5 border-bottom pb-5" v-if="project.labels && project.labels.length > 0">
                 <span class="badge bg-primary m-1" v-for="item in project.labels" :key="item.key">
-                    {{ item.key + "=" + item.value }}
+                    {{ item.key + " = " + item.value }}
                 </span>
             </div>
             <div v-if="project.documents && project.documents.length > 0">
