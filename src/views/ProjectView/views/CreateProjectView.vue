@@ -209,6 +209,10 @@ export default {
       router.push('/');
     },
     addLabel() {
+      if (this.labelKey.length == 0 || this.labelValue.length == 0) {
+        return
+      }
+
       this.labels.push({
         key: this.labelKey,
         value: this.labelValue
@@ -231,6 +235,10 @@ export default {
       }
     },
     addParam() {
+      if (this.paramKey.length == 0 || this.paramValue.length == 0) {
+        return
+      }
+
       this.params.push({
         key: this.paramKey,
         value: this.paramValue
@@ -253,6 +261,10 @@ export default {
       }
     },
     addEndpoint() {
+      if (this.endpointValue.length == 0) {
+        return
+      }
+
       this.endpoints.push(this.endpointValue);
       this.endpointValue = "";
     },
