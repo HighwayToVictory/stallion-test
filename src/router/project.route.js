@@ -6,9 +6,17 @@ export default [
     {
         path: '/projects/new',
         component: CreateProjectView,
+        meta: {
+            requiresAuth: true,
+            userRoute: true
+        }
     },
     {
         path: '/projects/:namespace/:id',
-        component: ProjectView
+        component: ProjectView,
+        meta: {
+            requiresAuth: true,
+            userRoute: true
+        }
     }
 ];

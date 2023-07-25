@@ -41,7 +41,7 @@ const router = createRouter({
   ]
 })
 
-router.beforeEach((to, _, next) => {
+router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     const authStore = useAuthStore();
 
@@ -59,7 +59,29 @@ router.beforeEach((to, _, next) => {
         authStore.logout();
       }
 
-      next();
+      // check admin and user routes
+      if (to.matched.some(record => record.meta.adminRoute)) {
+        if (parts['role'] == 1) {
+          next();
+        } else {
+          next({
+            path: from.path,
+          });
+        }
+      }
+
+      // check user route
+      if (to.matched.some(record => record.meta.userRoute)) {
+        if (parts['role'] == 1 || parts['role'] == 2) {
+          next();
+        } else {
+          next({
+            path: from.path,
+          });
+        }
+      }
+
+      next();      
     }
   }
   

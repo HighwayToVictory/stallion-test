@@ -6,9 +6,17 @@ export default [
     {
         path: '/users',
         component: UsersView,
+        meta: {
+            requiresAuth: true,
+            adminRoute: true
+        }
     },
     {
         path: '/users/new',
-        component: CreateUser
+        component: CreateUser,
+        meta: {
+            requiresAuth: true,
+            adminRoute: true
+        }
     }
 ];
