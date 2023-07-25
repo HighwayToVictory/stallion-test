@@ -1,4 +1,5 @@
-import { useAuthStore } from '@/stores';
+import { useAuthStore, useAlertStore } from '@/stores';
+import { statusUtil } from '@/utils';
 
 
 // fetchWrapper is used to make http requests
@@ -53,7 +54,10 @@ async function handleResponse(response) {
             logout();
         }
 
-        const error = (data && data.message) || response.status;
+        const error = (data && data.message) || statusUtil.status(response.status);
+
+        const alertStore = useAlertStore();
+        alertStore.error(error);
 
         return Promise.reject(error);
     }
