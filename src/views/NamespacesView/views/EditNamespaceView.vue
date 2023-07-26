@@ -54,6 +54,7 @@
 
 <script>
 import { adminNamespacesApi, adminUsersApi } from '@/api';
+import { useAlertStore } from '@/stores';
 import { useRoute } from 'vue-router'
 
 export default {
@@ -91,6 +92,9 @@ export default {
       })
 
       await adminNamespacesApi.update(parseInt(this.namespace_id), ids);
+
+      const alertStore = useAlertStore();
+      alertStore.success("Updated!");
     }
   },
   async mounted() {
