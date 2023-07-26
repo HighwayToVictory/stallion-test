@@ -1,5 +1,5 @@
 <script setup>
-import { parser } from '@/utils';
+import { parser, enumUtils } from '@/utils';
 import { useAuthStore } from '@/stores';
 
 const authStore = useAuthStore();
@@ -40,8 +40,21 @@ const authStore = useAuthStore();
                 <div class="h4 mb-2">
                     Documents
                 </div>
-                <div class="p-3 border rounded bg-secondary text-light my-3" v-for="item in project.documents" :key="item.id">
-                    {{ item.instruction }} | {{ item.status }} | {{ parser.parseTime(item.created_at) }}
+                <div class="row rounded bg-light text-dark my-3" v-for="item in project.documents" :key="item.id">
+                    <div class="col p-3" style="text-align: center;">
+                        {{ item.instruction }}
+                    </div>
+                    <div class="col p-3" style="text-align: center;">
+                        {{ enumUtils.status(item.status) }}
+                    </div>
+                    <div class="col p-3" style="text-align: center;">
+                        {{ parser.parseTime(item.created_at) }}
+                    </div>
+                    <div class="col p-3" style="text-align: center;">
+                        <button class="btn btn-sm btn-success">
+                            download log file
+                        </button>
+                    </div>
                 </div>
             </div>
             <div v-else>

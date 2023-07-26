@@ -1,5 +1,21 @@
 export const enumUtils = {
-    role: convert()
+    role: convert(),
+    status: change()
+}
+
+function change() {
+    return (input) => {
+        switch (input) {
+            case 1:
+            return "Initialized";
+            case 2:
+            return "Pending";
+            case 3:
+            return "Done";
+            case 4:
+            return "Failed";
+        } 
+    }
 }
 
 function convert() {
