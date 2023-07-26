@@ -21,7 +21,7 @@ import { parser } from '@/utils';
         new namespace
       </RouterLink>
     </div>
-    <div class="overflow-auto" style="height: 300px;">
+    <div class="mb-3">
       <table class="table border table-striped">
         <thead>
           <tr>

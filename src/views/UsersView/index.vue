@@ -23,7 +23,7 @@ import { enumUtils, parser } from '@/utils';
         new user
       </RouterLink>
     </div>
-    <div class="overflow-auto" style="height: 300px;">
+    <div class="mb-2">
       <table class="table border table-striped">
         <thead>
           <tr>

@@ -38,7 +38,7 @@ const authStore = useAuthStore();
           </select>
         </div>
       </div>
-      <div v-if="this.projects.length > 0" class="overflow-auto" style="height: 300px;">
+      <div v-if="this.projects.length > 0">
         <table class="table border table-striped">
           <thead>
             <tr>

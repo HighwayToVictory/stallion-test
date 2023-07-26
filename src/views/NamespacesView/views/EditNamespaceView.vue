@@ -15,7 +15,7 @@
         </svg>
         update
     </button>
-    <div class="row border rounded p-5" style="overflow: scroll; height: 300px;">
+    <div class="row border rounded p-5">
       <div class="col">
         <div class="h3 border-bottom pb-2 mb-2">
           Namespace Users

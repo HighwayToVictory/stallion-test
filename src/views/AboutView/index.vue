@@ -7,7 +7,7 @@
       </svg>
       APT Documents
     </div>
-    <div class="overflow-auto border rounded p-5" style="height: 485px;">
+    <div>
       <div style="text-align: justify;">
         APT stands for <b>Automate Penetration Testing</b>. This application is used to perform
         penetration testing on a host without any human agent needed. You can use this application

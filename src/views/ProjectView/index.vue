@@ -13,7 +13,7 @@ const authStore = useAuthStore();
             </svg>
             Project `{{ project.name }}`
         </div>
-        <div class="overflow-auto" style="height: 460px;">
+        <div>
             <div class="d-flex justify-content-between align-items-center mb-5">
                 <div class="h4">
                     {{ project.host }}

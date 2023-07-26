@@ -20,7 +20,7 @@ const authStore = useAuthStore();
 
     <div class="row p-0 m-0" style="min-height: -webkit-fill-available;">
       <div class="col-2 p-0 m-0" style="min-height: -webkit-fill-available;">
-        <Navigation v-if="authStore.token" />
+        <Navigation style="position: fixed; top: 0; left:0;" v-if="authStore.token" />
       </div>
       
       <div v-bind:class="authStore.token ? 'col-10' : 'col-7'" style="min-height: -webkit-fill-available;">

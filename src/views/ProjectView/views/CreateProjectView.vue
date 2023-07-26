@@ -6,7 +6,7 @@
     <div class="mb-5" style="text-align: justify;">
       Make a new project in a namespace that you want.
     </div>
-    <div class="overflow-auto border p-5 mb-3 rounded" style="height: 330px;">
+    <div class="mb-3">
       <div class="form-outline mb-4">
         <input type="text" v-model="name" id="name" class="form-control" placeholder="mysite ..." />
         <label class="form-label" for="name">
@@ -65,7 +65,7 @@
           <div class="col-10">
             <input type="text" v-model="endpointValue" class="form-control" placeholder="/endpoint" aria-label="endpoint">
           </div>
-          <div class="col-2 text-center">
+          <div class="col-2 text-end">
             <button v-on:click="addEndpoint" class="btn btn-primary">
               add
             </button>
@@ -75,7 +75,7 @@
           <div class="col-10">
             <input type="text" :value="item" class="form-control" placeholder="endpoint" aria-label="endpoint" disabled />
           </div>
-          <div class="col-2 text-center">
+          <div class="col-2 text-end">
             <button v-on:click="removeEndpoint(item)" class="btn btn-danger">
               remove
             </button>
@@ -96,7 +96,7 @@
           <div class="col-5">
             <input type="text" v-model="labelValue" class="form-control" placeholder="value" aria-label="value">
           </div>
-          <div class="col-2 text-center">
+          <div class="col-2 text-end">
             <button v-on:click="addLabel" class="btn btn-primary">
               add
             </button>
@@ -109,7 +109,7 @@
           <div class="col-5">
             <input type="text" :value="item.value" class="form-control" placeholder="value" aria-label="value" disabled />
           </div>
-          <div class="col-2 text-center">
+          <div class="col-2 text-end">
             <button v-on:click="removeLabel(item.key)" class="btn btn-danger">
               remove
             </button>
@@ -131,7 +131,7 @@
           <div class="col-5">
             <input type="text" v-model="paramValue" class="form-control" placeholder="value" aria-label="value">
           </div>
-          <div class="col-2 text-center">
+          <div class="col-2 text-end">
             <button v-on:click="addParam" class="btn btn-primary">
               add
             </button>
@@ -144,7 +144,7 @@
           <div class="col-5">
             <input type="text" :value="item.value" class="form-control" placeholder="value" aria-label="value" disabled />
           </div>
-          <div class="col-2 text-center">
+          <div class="col-2 text-end">
             <button v-on:click="removeParam(item.key)" class="btn btn-danger">
               remove
             </button>
@@ -165,7 +165,7 @@
         </label>
       </div>
     </div>
-    <button v-on:click="createProject" type="button" class="btn btn-primary btn-block mb-4">
+    <button v-on:click="createProject" type="button" class="btn btn-primary btn-block my-4">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi me-2 bi-box-arrow-in-right" viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>
           <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
