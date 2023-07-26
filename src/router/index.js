@@ -10,6 +10,7 @@ import projectRoute from './project.route';
 import HomeView from '../views/HomeView/index.vue'
 import LoginView from '../views/LoginView/index.vue'
 import Profile from '../views/UsersView/views/Profile.vue'
+import { About } from '@/views/AboutView';
 
 
 const router = createRouter({
@@ -38,7 +39,7 @@ const router = createRouter({
     {
       path: '/about',
       name: 'about',
-      component: () => import('../views/AboutView/index.vue'),
+      component: About,
       meta: {
         requiresAuth: true
       }
