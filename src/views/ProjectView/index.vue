@@ -37,8 +37,11 @@ const authStore = useAuthStore();
                 </span>
             </div>
             <div v-if="project.documents && project.documents.length > 0">
-                <div class="h5">
+                <div class="h4 mb-2">
                     Documents
+                </div>
+                <div class="p-3 border rounded bg-secondary text-light my-3" v-for="item in project.documents" :key="item.id">
+                    {{ item.instruction }} | {{ item.status }} | {{ parser.parseTime(item.created_at) }}
                 </div>
             </div>
             <div v-else>
