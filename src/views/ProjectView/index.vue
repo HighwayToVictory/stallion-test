@@ -45,13 +45,17 @@ const authStore = useAuthStore();
                         {{ item.instruction }}
                     </div>
                     <div class="col p-3" style="text-align: center;">
-                        {{ enumUtils.status(item.status) }}
+                        <span class="badge bg-primary">
+                            {{ enumUtils.status(item.status) }}
+                        </span>
                     </div>
                     <div class="col p-3" style="text-align: center;">
-                        {{ parser.parseTime(item.created_at) }}
+                        <span class="badge bg-dark">
+                            {{ parser.parseTime(item.created_at) }}
+                        </span>
                     </div>
                     <div class="col p-3" style="text-align: center;">
-                        <button class="btn btn-sm btn-success">
+                        <button class="btn btn-sm btn-secondary ">
                             download log file
                         </button>
                     </div>
