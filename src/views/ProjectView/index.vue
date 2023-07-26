@@ -55,9 +55,9 @@ const authStore = useAuthStore();
                         </span>
                     </div>
                     <div class="col p-3" style="text-align: center;">
-                        <button v-on:click="download(item.id)" class="btn btn-sm btn-secondary">
+                        <a v-on:click="download(item.id)" class="btn btn-sm btn-secondary" download>
                             download log file
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -78,6 +78,7 @@ const authStore = useAuthStore();
 <script>
 import { useRoute } from 'vue-router';
 import { projectsApi } from '@/api';
+import { fetchWrapper } from '@/helpers';
 
 export default {
     data() {
@@ -89,7 +90,10 @@ export default {
     },
     methods: {
         async download(id) {
-            await projectsApi.download(this.namespace_id, this.project_id, id);
+            const url = projectsApi.download(this.namespace_id, this.project_id, id);
+
+            var file = await fetchWrapper.file(url);
+            window.location.assign(file);
         }
     },
     async mounted() {

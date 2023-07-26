@@ -7,7 +7,8 @@ export const fetchWrapper = {
     get: request('GET'),
     post: request('POST'),
     put: request('PUT'),
-    delete: request('DELETE')
+    delete: request('DELETE'),
+    file: file()
 };
 
 
@@ -25,6 +26,21 @@ function request(method) {
         }
 
         return fetch(url, requestOptions).then(handleResponse);
+    }
+}
+
+function file() {
+    return (url) => {
+        const requestOptions = {
+            method: 'GET',
+            headers: authHeader(url)
+        };
+
+        return fetch(url, requestOptions)
+            .then( res => res.blob() )
+            .then( blob => {
+                return window.URL.createObjectURL(blob);
+            });
     }
 }
 

@@ -26,7 +26,7 @@ function getSingle() {
 
 // download document
 function download() {
-    return async (namespace_id, project_id, id) => {
-        return fetchWrapper.get(`${baseUrl}/${namespace_id}/projects/${project_id}/${id}`);
+    return (namespace_id, project_id, id) => {
+        return `${baseUrl}/${namespace_id}/projects/${project_id}/${id}`;
     }
 }

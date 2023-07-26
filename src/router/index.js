@@ -76,10 +76,7 @@ router.beforeEach((to, from, next) => {
             path: from.path,
           });
         }
-      }
-
-      // check user route
-      if (to.matched.some(record => record.meta.userRoute)) {
+      } else if (to.matched.some(record => record.meta.userRoute)) {
         if (parts['role'] == 1 || parts['role'] == 2) {
           next();
         } else {
@@ -87,13 +84,13 @@ router.beforeEach((to, from, next) => {
             path: from.path,
           });
         }
-      }
-
-      next();      
+      } else {
+        next();
+      } 
     }
+  } else {
+    next();
   }
-  
-  next();
 })
 
 
