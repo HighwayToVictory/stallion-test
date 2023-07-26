@@ -56,7 +56,7 @@ const authStore = useAuthStore();
                     </div>
                     <div class="col p-3" style="text-align: center;">
                         <a v-on:click="download(item.id)" class="btn btn-sm btn-secondary" download>
-                            download log file
+                            view log file
                         </a>
                     </div>
                 </div>
@@ -92,7 +92,9 @@ export default {
         async download(id) {
             const url = projectsApi.download(this.namespace_id, this.project_id, id);
 
-            var file = await fetchWrapper.file(url);
+            console.log(url);
+
+            let file = await fetchWrapper.file(url);
             window.location.assign(file);
         }
     },

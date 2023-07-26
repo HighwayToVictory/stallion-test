@@ -15,8 +15,7 @@ export default [
         path: '/projects/:namespace/:id',
         component: ProjectView,
         meta: {
-            requiresAuth: true,
-            userRoute: true
+            requiresAuth: true
         }
     }
 ];
