@@ -6,7 +6,8 @@ const baseUrl = `${import.meta.env.VITE_API_URL}/namespaces`;
 // projectsApi manages the projects get endpoints
 export const projectsApi = {
     get: get(),
-    getSingle: getSingle()
+    getSingle: getSingle(),
+    download: download()
 };
 
 // get all projects
@@ -20,5 +21,12 @@ function get() {
 function getSingle() {
     return async (namespace_id, project_id) => {
         return fetchWrapper.get(`${baseUrl}/${namespace_id}/projects/${project_id}`);
+    }
+}
+
+// download document
+function download() {
+    return async (namespace_id, project_id, id) => {
+        return fetchWrapper.get(`${baseUrl}/${namespace_id}/projects/${project_id}/${id}`);
     }
 }

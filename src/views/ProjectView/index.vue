@@ -55,7 +55,7 @@ const authStore = useAuthStore();
                         </span>
                     </div>
                     <div class="col p-3" style="text-align: center;">
-                        <button class="btn btn-sm btn-secondary ">
+                        <button v-on:click="download(item.id)" class="btn btn-sm btn-secondary">
                             download log file
                         </button>
                     </div>
@@ -85,6 +85,11 @@ export default {
             namespace_id: 0,
             project_id: 0,
             project: ""
+        }
+    },
+    methods: {
+        async download(id) {
+            await projectsApi.download(this.namespace_id, this.project_id, id);
         }
     },
     async mounted() {
