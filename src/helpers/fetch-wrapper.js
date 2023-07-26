@@ -40,7 +40,15 @@ function file() {
             .then( res => res.blob() )
             .then( blob => {
                 return window.URL.createObjectURL(blob);
-            });
+            })
+            .catch(error => {
+                console.log(error);
+
+                const alertStore = useAlertStore();
+                alertStore.error("FTP server error!");
+
+                return null;
+            })
     }
 }
 
