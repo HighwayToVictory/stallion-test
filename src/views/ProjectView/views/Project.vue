@@ -92,11 +92,9 @@ export default {
         async download(id) {
             const url = projectsApi.download(this.namespace_id, this.project_id, id);
 
-            let file = await fetchWrapper.file(url);
-            if (file == null) {
-                return;
-            }
+            console.log(url);
 
+            let file = await fetchWrapper.file(url);
             window.location.assign(file);
         }
     },
@@ -109,7 +107,3 @@ export default {
     }
 }
 </script>
-
-<style>
-
-</style>

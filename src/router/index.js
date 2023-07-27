@@ -7,9 +7,9 @@ import namespaceRoute from './namespace.route';
 import projectRoute from './project.route';
 
 
-import HomeView from '../views/HomeView/index.vue'
-import LoginView from '../views/LoginView/index.vue'
-import Profile from '../views/UsersView/views/Profile.vue'
+import { Home } from '@/views/HomeView';
+import { Login } from '@/views/LoginView';
+import { Profile } from '@/views/UsersView';
 import { About } from '@/views/AboutView';
 
 
@@ -19,12 +19,12 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: LoginView
+      component: Login
     },
     {
       path: '/',
       name: 'home',
-      component: HomeView,
+      component: Home,
       meta: {
         requiresAuth: true
       }

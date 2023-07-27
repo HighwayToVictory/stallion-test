@@ -1,11 +1,10 @@
-import CreateProjectView from '../views/ProjectView/views/CreateProjectView.vue'
-import ProjectView from '../views/ProjectView/index.vue'
+import { CreateProject, Project } from '@/views/ProjectView';
 
 
 export default [
     {
         path: '/projects/new',
-        component: CreateProjectView,
+        component: CreateProject,
         meta: {
             requiresAuth: true,
             userRoute: true
@@ -13,7 +12,7 @@ export default [
     },
     {
         path: '/projects/:namespace/:id',
-        component: ProjectView,
+        component: Project,
         meta: {
             requiresAuth: true
         }

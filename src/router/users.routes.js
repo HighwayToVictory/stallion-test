@@ -1,11 +1,10 @@
-import UsersView from '../views/UsersView/index.vue'
-import CreateUser from '../views/UsersView/views/CreateUserView.vue'
+import { Users, Create } from '@/views/UsersView'
 
 
 export default [
     {
         path: '/users',
-        component: UsersView,
+        component: Users,
         meta: {
             requiresAuth: true,
             adminRoute: true
@@ -13,7 +12,7 @@ export default [
     },
     {
         path: '/users/new',
-        component: CreateUser,
+        component: Create,
         meta: {
             requiresAuth: true,
             adminRoute: true

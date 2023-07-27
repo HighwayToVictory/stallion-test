@@ -1,12 +1,10 @@
-import NamespacesView from '../views/NamespacesView/index.vue'
-import CreateNamespace from '../views/NamespacesView/views/CreateNamespaceView.vue'
-import EditNamespace from '../views/NamespacesView/views/EditNamespaceView.vue'
+import { Namespaces, CreateNamespace, UpdateNamecpase } from '@/views/NamespacesView';
 
 
 export default [
     {
         path: '/namespaces',
-        component: NamespacesView,
+        component: Namespaces,
         meta: {
             requiresAuth: true,
             adminRoute: true
@@ -22,7 +20,7 @@ export default [
     },
     {
         path: '/namespaces/edit/:id',
-        component: EditNamespace,
+        component: UpdateNamecpase,
         meta: {
             requiresAuth: true,
             adminRoute: true
