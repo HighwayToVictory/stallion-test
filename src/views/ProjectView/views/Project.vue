@@ -64,12 +64,19 @@ const authStore = useAuthStore();
             <div v-else>
                 There are not documents for this project!
             </div>
-            <button v-if="authStore.user() || authStore.admin()" class="btn btn-success   mt-5">
+            <button v-if="authStore.user() || authStore.admin()" v-on:click="execute" class="btn mt-5" :class="this.executealbe ? 'btn-success' : 'btn-warning'">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi me-2 bi-arrow-counterclockwise" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
                     <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"/>
                 </svg>
-                execute tests
+                {{ this.executealbe ? 'execute tests' : 'wait ...' }}
+            </button>
+            <button v-if="(authStore.user() || authStore.admin()) && !this.executealbe" class="btn btn-primary mt-5" style="margin-left: 5px;" v-on:click="reloadProject">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi me-2 bi-arrow-counterclockwise" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
+                    <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"/>
+                </svg>
+                reload
             </button>
         </div>
     </div>
@@ -77,7 +84,7 @@ const authStore = useAuthStore();
 
 <script>
 import { useRoute } from 'vue-router';
-import { projectsApi } from '@/api';
+import { projectsApi, userProjectsApi } from '@/api';
 import { fetchWrapper } from '@/helpers';
 
 export default {
@@ -85,7 +92,8 @@ export default {
         return {
             namespace_id: 0,
             project_id: 0,
-            project: ""
+            project: "",
+            executealbe: false
         }
     },
     methods: {
@@ -96,6 +104,30 @@ export default {
 
             let file = await fetchWrapper.file(url);
             window.location.assign(file);
+        },
+        async execute() {
+            if (!this.executealbe) {
+                return;
+            }
+
+            await userProjectsApi.execute(this.namespace_id, this.project_id);
+        },
+        checkExec() {
+            const limit = this.project.documents.length;
+            var count = 0;
+            this.project.documents.forEach((el) => {
+                if (el.status === 3 || el.status === 4) {
+                    count++;
+                }
+            });
+
+            if (count == limit) {
+                this.executealbe = true;
+            }
+        },
+        async reloadProject() {
+            this.project = await projectsApi.getSingle(this.namespace_id, this.project_id);
+            this.checkExec();
         }
     },
     async mounted() {
@@ -104,6 +136,10 @@ export default {
         this.namespace_id = route.params.namespace;
         this.project_id = route.params.id;
         this.project = await projectsApi.getSingle(this.namespace_id, this.project_id);
+
+        this.project.documents[0].status = 1;
+
+        this.checkExec();
     }
 }
 </script>
