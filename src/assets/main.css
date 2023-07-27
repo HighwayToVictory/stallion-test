@@ -13,16 +13,21 @@ body, #app, .container {
   position: fixed;
   z-index: -1;
   top: 0;
-  right: -350px;
-  width: 800px;
+  right: 0;
+  width: 700px;
   height: 900px;
   color: #ffffff;
-  padding: 250px 0 0 60px;
-  transform: rotate(20deg);
 }
 
 .out-bg > svg {
-  transform: rotate(-20deg);
+  display: block;
+  margin: 200px auto;
+}
+
+.out-bg > small {
+  position: absolute;
+  top: 520px;
+  left: 228px;
 }
 
 .margin-10 {
