@@ -6,7 +6,8 @@ const baseUrl = `${import.meta.env.VITE_API_URL}/user/namespaces`;
 // userProjectsApi manages the projects crud by users group
 export const userProjectsApi = {
     create: create(),
-    remove: remove()
+    remove: remove(),
+    execute: execute()
 };
 
 // create a new project
@@ -31,5 +32,14 @@ function create() {
 function remove() {
     return async (namespace_id, project_id) => {
         return fetchWrapper.delete(`${baseUrl}/${namespace_id}/projects/${project_id}`);
+    }
+}
+
+// execute a project
+function execute() {
+    return async () => {
+        const body = {}
+
+        return fetchWrapper.post(`${baseUrl}/${namespace_id}/projects/${project_id}`, body);
     }
 }
