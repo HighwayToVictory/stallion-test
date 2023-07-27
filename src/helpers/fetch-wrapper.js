@@ -29,6 +29,7 @@ function request(method) {
     }
 }
 
+// download file
 function file() {
     return (url) => {
         const requestOptions = {
@@ -72,12 +73,6 @@ async function handleResponse(response) {
     const data = isJson ? await response.json() : null;
 
     if (!response.ok) {
-        const { user, logout } = useAuthStore();
-        
-        if ([401, 403].includes(response.status) && user) {
-            logout();
-        }
-
         const error = (data && data.message) || statusUtil.status(response.status);
 
         const alertStore = useAlertStore();
