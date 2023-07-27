@@ -46,6 +46,7 @@
 
 <script>
 import { adminUsersApi } from '@/api';
+import { useAlertStore } from '@/stores';
 import router from '@/router';
 
 export default {
@@ -63,6 +64,9 @@ export default {
       this.username = "";
       this.password = "";
       this.role = "1";
+
+      const alertStore = useAlertStore();
+      alertStore.success("User created!");
 
       router.push('/users');
     }

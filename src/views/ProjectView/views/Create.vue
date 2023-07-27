@@ -177,6 +177,7 @@
   
   <script>
   import { namespacesApi, userProjectsApi } from '@/api';
+  import { useAlertStore } from '@/stores';
   import router from '@/router';
   
   export default {
@@ -211,6 +212,9 @@
         this.params = [];
         this.endpoints = [];
         this.secure = false;
+
+        const alertStore = useAlertStore();
+        alertStore.success("Project created!");
   
         router.push('/');
       },

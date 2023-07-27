@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import { useAlertStore } from '@/stores';
 import { adminNamespacesApi } from '@/api';
 import router from '@/router';
 
@@ -40,6 +41,9 @@ export default {
       await adminNamespacesApi.create(this.name);
 
       this.name = "";
+
+      const alertStore = useAlertStore();
+      alertStore.success("Namespace created!");
 
       router.push('/namespaces');
     }
