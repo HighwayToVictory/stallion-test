@@ -19,9 +19,17 @@ RUN npm run build
 # production stage
 FROM nginx:stable-alpine as production-stage
 
+# maintainer
 MAINTAINER amirhnajafiz
+
+# container labels
 LABEL app=frontend
 LABEL function=ui
+LABEL framework=vue
+LABEL name=apt-ui
+LABEL version=v0.0.1
+LABEL target=main
+LABEL balancer=nginx
 
 # set environment
 ENV VITE_API_URL=http://localhost:8080
