@@ -48,3 +48,15 @@ body, #app, .container {
 .padding-30 {
   padding: 30px;
 }
+
+.border-1 {
+  border: 1px solid black;
+}
+
+.no-border {
+  border: 0px solid black;
+}
+
+.round-border {
+  border-radius: 10px;
+}
