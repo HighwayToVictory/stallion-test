@@ -139,8 +139,6 @@ export default {
         this.project_id = route.params.id;
         this.project = await projectsApi.getSingle(this.namespace_id, this.project_id);
 
-        this.project.documents[0].status = 1;
-
         this.checkExec();
     }
 }

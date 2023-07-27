@@ -37,7 +37,7 @@ function remove() {
 
 // execute a project
 function execute() {
-    return async () => {
+    return async (namespace_id, project_id) => {
         const body = {}
 
         return fetchWrapper.post(`${baseUrl}/${namespace_id}/projects/${project_id}`, body);
