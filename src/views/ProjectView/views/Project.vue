@@ -37,8 +37,13 @@ const authStore = useAuthStore();
                 </span>
             </div>
             <div v-if="project.documents && project.documents.length > 0">
-                <div class="h4 mb-2">
+                <div class="h4 mb-3">
                     Documents
+                </div>
+                <div class="mb-5" style="text-align: justify;">
+                    In this section you can see the project documents. Documents are created when you execute penetration
+                    testing for a project. Each document is a certificate for an spicific attack that was performed on your
+                    host. You see the attack results in their log files.
                 </div>
                 <div class="row rounded bg-light text-dark my-3" v-for="item in project.documents" :key="item.id">
                     <div class="col p-3" style="text-align: center;">
@@ -61,8 +66,10 @@ const authStore = useAuthStore();
                     </div>
                 </div>
             </div>
-            <div v-else>
-                There are not documents for this project!
+            <div class="my-5" style="text-align: justify;" v-else>
+                There are not documents for this project! You can create documents by executing penetration
+                testing on your host. Just click the button below. If you are a viewer, you cannot execute the project.
+                Project execution is only available for admins and developers.
             </div>
             <button v-if="authStore.user() || authStore.admin()" v-on:click="execute" class="btn mt-5" :class="this.executealbe ? 'btn-success' : 'btn-warning disabled'">
                 <svg v-if="this.executealbe" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi me-2 bi-skip-start-circle-fill" viewBox="0 0 16 16">
@@ -111,6 +118,8 @@ export default {
             if (!this.executealbe) {
                 return;
             }
+
+            this.executealbe = false;
 
             await userProjectsApi.execute(this.namespace_id, this.project_id);
         },
