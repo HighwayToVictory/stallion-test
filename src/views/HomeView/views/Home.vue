@@ -18,7 +18,7 @@ const authStore = useAuthStore();
       that you are not belong to or their projects.
     </div>
     <div v-if="this.namespace != null">
-      <div class="mb-3 border-bottom pb-2 row">
+      <div class="mb-5 border-bottom pb-2 row">
         <div class="h3 col-8">
           Projects
         </div>
