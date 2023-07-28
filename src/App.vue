@@ -18,7 +18,7 @@ const authStore = useAuthStore();
       </svg>
       <small style="text-align: center;">
         Automated Penetration Testing System<br />
-        version v0.0.1
+        <b>version v0.0.1</b>
       </small>
     </div>
 
