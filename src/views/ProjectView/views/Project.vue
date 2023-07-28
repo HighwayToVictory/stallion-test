@@ -56,7 +56,7 @@ const authStore = useAuthStore();
                     </div>
                     <div class="col p-3" style="text-align: center;">
                         <span class="badge bg-dark">
-                            {{ parser.parseTime(item.created_at) }}
+                            {{ "Executed at: " + parser.parseTime(item.created_at) }}
                         </span>
                     </div>
                     <div class="col p-3" style="text-align: center;">
