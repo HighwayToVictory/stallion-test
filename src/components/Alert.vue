@@ -8,7 +8,7 @@ const { alert } = storeToRefs(alertStore);
 </script>
 
 <template>
-    <div v-if="alert">
+    <div style="max-width: 320px;" v-if="alert">
         <div class="alert mt-3 fade show alert-dismissable" role="alert" :class="alert.type">
             <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
                 <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
@@ -24,7 +24,7 @@ const { alert } = storeToRefs(alertStore);
             <svg v-if="alert.type == 'alert-danger'" class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
             <svg v-if="alert.type == 'alert-success'" class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
             {{ alert.message }}
-            <button style="margin-left: 15px;" @click="alertStore.clear()" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+            <button style="float: right;" @click="alertStore.clear()" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
         </div>
     </div>
 </template>
