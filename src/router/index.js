@@ -7,7 +7,8 @@ import namespaceRoute from './namespace.route';
 import projectRoute from './project.route';
 
 
-import { Home } from '@/views/HomeView';
+import { Home, Dashboard } from '@/views/HomeView';
+import { Metrics } from '@/views/MetricsView';
 import { Login } from '@/views/LoginView';
 import { Profile } from '@/views/UsersView';
 import { About } from '@/views/AboutView';
@@ -27,6 +28,23 @@ const router = createRouter({
       component: Home,
       meta: {
         requiresAuth: true
+      }
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: Dashboard,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/metrics',
+      name: 'metrics',
+      component: Metrics,
+      meta: {
+        requiresAuth: true,
+        adminRoute: true
       }
     },
     {
