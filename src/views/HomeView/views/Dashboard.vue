@@ -53,10 +53,10 @@ const authStore = useAuthStore();
             namespace projects
           </div>
           <div>
-            <button v-on:click="compare('date')" class="btn btn-sm btn-dark" style="margin-right: 10px;">
+            <button v-on:click="compare('date', false)" class="btn btn-sm btn-dark" style="margin-right: 10px;">
               Sort by date
             </button>
-            <button v-on:click="compare('name')" class="btn btn-sm btn-dark">
+            <button v-on:click="compare('name', false)" class="btn btn-sm btn-dark">
               Sort by name
             </button>
           </div>
@@ -134,25 +134,20 @@ export default {
       let tmp = await projectsApi.get(this.namespace.id);
       this.projects = tmp.projects;
     },
-    compareByDate(a, b) {
-      const da = new Date(a['created_at']).getTime();
-      const db = new Date(b['created_at']).getTime();
+    compareObj(field, reverse) {
+      return (a, b) => {
+        const av = a[field];
+        const bv = b[field];
 
-      if (da < db) {
-        return 1;
-      } else {
-        return -1;
+        if (reverse) {
+          return av < bv ? 1 : -1;
+        } else {
+          return av > bv ? 1 : -1;
+        }
       }
     },
-    compareByName(a, b) {
-      return a['name'].localeCompare(b['name']);
-    },
-    compare(method) {
-      if (method == "date") {
-        this.projects.sort(this.compareByDate);
-      } else {
-        this.projects.sort(this.compareByName);
-      }
+    compare(field, reverse) {
+      this.projects.sort(this.compareObj(field, reverse));
     }
   },
   async mounted() {
