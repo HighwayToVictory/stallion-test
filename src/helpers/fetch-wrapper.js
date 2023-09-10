@@ -25,7 +25,7 @@ function request(method) {
             requestOptions.body = JSON.stringify(body);
         }
 
-        return fetch(url, requestOptions).then(handleResponse);
+        return fetch(url, requestOptions).then(handleResponse).catch(handleError);
     }
 }
 
@@ -82,4 +82,12 @@ async function handleResponse(response) {
     }
 
     return data;
+}
+
+// handle error
+async function handleError(error) {
+    console.error(error);
+
+    const alertStore = useAlertStore();
+        alertStore.error(error);
 }
