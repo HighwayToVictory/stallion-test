@@ -79,6 +79,7 @@ const authStore = useAuthStore();
               <tr>
                 <th scope="col" style="text-align: center;">Name</th>
                 <th scope="col" style="text-align: center;">Created at</th>
+                <th scope="col" style="text-align: center;">Description</th>
                 <th scope="col" style="text-align: center;">Created by</th>
                 <th scope="col" style="text-align: center;">Actions</th>
               </tr>
@@ -92,18 +93,23 @@ const authStore = useAuthStore();
                   {{ parser.parseTime(project['created_at']) }}
                 </td>
                 <td style="text-align: center;">
-                  {{  project['created_by']??'none' }}
+                  {{ project['description'] }}
+                </td>
+                <td style="text-align: center;">
+                  {{  project['created_by']??'not set' }}
                 </td>
                 <td style="text-align: center;">
                   <button v-if="authStore.user() || authStore.admin()" v-on:click="deleteProject(project['id'])" class="btn btn-danger btn-sm text-left" style="margin-right: 5px;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi me-2 bi-person-x-fill" viewBox="0 0 16 16">
-                      <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6.146-2.854a.5.5 0 0 1 .708 0L14 6.293l1.146-1.147a.5.5 0 0 1 .708.708L14.707 7l1.147 1.146a.5.5 0 0 1-.708.708L14 7.707l-1.146 1.147a.5.5 0 0 1-.708-.708L13.293 7l-1.147-1.146a.5.5 0 0 1 0-.708z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder-x me-2" viewBox="0 0 16 16">
+                      <path d="M.54 3.87.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181L15.546 8H14.54l.265-2.91A1 1 0 0 0 13.81 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91H9v1H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31zm6.339-1.577A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707z"/>
+                      <path d="M11.854 10.146a.5.5 0 0 0-.707.708L12.293 12l-1.146 1.146a.5.5 0 0 0 .707.708L13 12.707l1.146 1.147a.5.5 0 0 0 .708-.708L13.707 12l1.147-1.146a.5.5 0 0 0-.707-.708L13 11.293l-1.146-1.147z"/>
                     </svg>
                     delete project
                   </button>
                   <RouterLink :to="`/projects/${this.namespace.id}/${project.id}`" class="btn btn-primary btn-sm text-left">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi me-2 bi-person-x-fill" viewBox="0 0 16 16">
-                      <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6.146-2.854a.5.5 0 0 1 .708 0L14 6.293l1.146-1.147a.5.5 0 0 1 .708.708L14.707 7l1.147 1.146a.5.5 0 0 1-.708.708L14 7.707l-1.146 1.147a.5.5 0 0 1-.708-.708L13.293 7l-1.147-1.146a.5.5 0 0 1 0-.708z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill me-2" viewBox="0 0 16 16">
+                      <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                      <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
                     </svg>
                     view project
                   </RouterLink>
@@ -143,6 +149,8 @@ export default {
       
       let tmp = await projectsApi.get(this.namespace.id);
       this.projects = tmp.projects;
+
+      console.log(this.projects);
     },
     async deleteProject(id) {
       await userProjectsApi.remove(this.namespace.id, id);
