@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 
 import { fetchWrapper } from '@/helpers';
+import { useAlertStore } from '@/stores';
 import router from '@/router';
 
 
@@ -30,6 +31,9 @@ export const useAuthStore = defineStore({
             this.token = token;
 
             localStorage.setItem("jwt", token);
+
+            const alertStore = useAlertStore();
+            alertStore.success(`Welcome ${this.username()}`);
 
             router.push(this.returnUrl || '/');
         },
