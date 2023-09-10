@@ -48,33 +48,41 @@ const authStore = useAuthStore();
     </div>
     <div class="bg-light rounded p-3 my-3">
       <div v-if="this.namespace != null">
-        <div class="pb-2">
+        <div class="pb-2 d-flex justify-content-between">
           <div class="h4">
             namespace projects
           </div>
+          <div>
+            <button v-on:click="compare('date')" class="btn btn-sm btn-dark" style="margin-right: 10px;">
+              Sort by date
+            </button>
+            <button v-on:click="compare('name')" class="btn btn-sm btn-dark">
+              Sort by name
+            </button>
+          </div>
         </div>
         <div v-if="this.projects.length > 0">
-          <table class="table border table-striped">
+          <table class="table table-bordered">
             <thead>
               <tr>
                 <th scope="col" style="text-align: center;">Name</th>
-                <th scope="col" style="text-align: center;">Host</th>
                 <th scope="col" style="text-align: center;">Created at</th>
+                <th scope="col" style="text-align: center;">Created by</th>
                 <th scope="col" style="text-align: center;">Actions</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="project in projects" v-bind:key="project['id']">
-                <td class="p-3" style="text-align: center;">
+              <tr v-for="project in projectsList" v-bind:key="project['id']">
+                <td style="text-align: center;">
                   {{ project['name'] }}
                 </td>
-                <td class="p-3" style="text-align: center;">
-                  {{ project['host'] }}
+                <td style="text-align: center;">
+                  {{ parser.parseTime(project['created_at']) }}
                 </td>
-                <td class="p-3" style="text-align: center;">
-                  {{ parser.parseDate(project['created_at']) }}
+                <td style="text-align: center;">
+                  {{  project['created_by']??'none' }}
                 </td>
-                <td class="p-3" style="text-align: center;">
+                <td style="text-align: center;">
                   <button v-if="authStore.user() || authStore.admin()" v-on:click="deleteProject(project['id'])" class="btn btn-danger btn-sm text-left" style="margin-right: 5px;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi me-2 bi-person-x-fill" viewBox="0 0 16 16">
                       <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6.146-2.854a.5.5 0 0 1 .708 0L14 6.293l1.146-1.147a.5.5 0 0 1 .708.708L14.707 7l1.147 1.146a.5.5 0 0 1-.708.708L14 7.707l-1.146 1.147a.5.5 0 0 1-.708-.708L13.293 7l-1.147-1.146a.5.5 0 0 1 0-.708z"/>
@@ -125,6 +133,26 @@ export default {
       
       let tmp = await projectsApi.get(this.namespace.id);
       this.projects = tmp.projects;
+    },
+    compareByDate(a, b) {
+      const da = new Date(a['created_at']).getTime();
+      const db = new Date(b['created_at']).getTime();
+
+      if (da < db) {
+        return 1;
+      } else {
+        return -1;
+      }
+    },
+    compareByName(a, b) {
+      return a['name'].localeCompare(b['name']);
+    },
+    compare(method) {
+      if (method == "date") {
+        this.projects.sort(this.compareByDate);
+      } else {
+        this.projects.sort(this.compareByName);
+      }
     }
   },
   async mounted() {
@@ -141,12 +169,17 @@ export default {
       this.projects = tmp.projects;
     }
   },
+  computed: {
+    projectsList() {
+      return this.projects;
+    }
+  },
   watch: {
     namespace: async function(n, o) {
       if (n !== o) {
         await this.select(n);
       }
-    }
+    },
   }
 }
 </script>
