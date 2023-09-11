@@ -66,6 +66,7 @@
   import { adminUsersApi } from '@/api';
   import { useAlertStore } from '@/stores';
   import { useRoute } from 'vue-router'
+  import router from '@/router';
   
   export default {
     data() {
@@ -78,8 +79,13 @@
       }
     },
     methods: {
-      update() {
-        console.log(user);
+      async update() {
+        await adminUsersApi.create(this.user_id, this.username, this.password, parseInt(this.role));
+
+        const alertStore = useAlertStore();
+        alertStore.success("User updated!");
+
+        router.push('/users');
       }
     },
     async mounted() {

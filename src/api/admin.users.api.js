@@ -9,7 +9,8 @@ export const adminUsersApi = {
     get: get(),
     remove: remove(),
     getSingle: getSingle(),
-    create: create()
+    create: create(),
+    update: update()
 };
 
 // get all users
@@ -30,6 +31,19 @@ function getSingle() {
 function remove() {
     return async (id) => {
         await fetchWrapper.delete(`${baseUrl}/${id}`);
+    }
+}
+
+// update user
+function update() {
+    return async (id, username, password, role) => {
+        const body = {
+            "username": username,
+            "password": password,
+            "role": role
+        };
+
+        await fetchWrapper.put(`${baseUrl}/${id}`, body);
     }
 }
 
