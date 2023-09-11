@@ -1,7 +1,7 @@
 import { fetchWrapper } from '@/helpers';
 
 // backend admin api address
-const baseUrl = `${import.meta.env.VITE_API_URL}/admin/namespaces`;
+const baseUrl = `${import.meta.env.VITE_API_URL}/namespaces`;
 
 
 // adminNamespacesApi handles the http requests to namespaces at admin group
