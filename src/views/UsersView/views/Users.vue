@@ -75,6 +75,7 @@ import { enumUtils, parser } from '@/utils';
 
 <script>
 import { adminUsersApi } from '@/api';
+import { useAlertStore } from '@/stores';
 
 export default {
   data() {
@@ -86,6 +87,8 @@ export default {
     async deleteUser(id) {
       await adminUsersApi.remove(id);
       this.users = await adminUsersApi.get();
+      const alertStore = useAlertStore();
+      alertStore.success(`User deleted!`);
     },
     updateUser(id) {
       console.log(id);
