@@ -82,7 +82,6 @@ export default {
   },
   async mounted() {
     this.metrics = await metricsApi.get();
-    console.log(this.metrics);
   }
 }
 </script>
