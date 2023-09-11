@@ -7,3 +7,4 @@ export * from './namespaces.api';
 export * from './user.projects.api';
 export * from './projects.api';
 export * from './user.api';
+export * from './metrics.api';
