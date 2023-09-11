@@ -1,5 +1,5 @@
 <script setup>
-import { enumUtils } from '@/utils'
+import { enumUtils, parser } from '@/utils'
 </script>
 
 <template>
@@ -14,6 +14,14 @@ import { enumUtils } from '@/utils'
       </div>
     </div>
     <div class="bg-light rounded p-3">
+      <div>
+        <div>
+          Created at <b>{{ parser.parseTime(user.created_at) }}</b>
+        </div>
+        <div>
+          Role <b>{{ enumUtils.role(user.role) }}</b>
+        </div>
+      </div>
       <div class="row p-0 m-0 mb-4 pt-4" style="grid-column-gap: 20px;"> 
         <div class="col p-0 m-0">
           <div class="form-outline">
@@ -74,6 +82,7 @@ export default {
     async mounted() {
         this.user = await userApi.get();
         this.username = this.user.username;
+        this.password = this.user.password;
     }
 }
 </script>
