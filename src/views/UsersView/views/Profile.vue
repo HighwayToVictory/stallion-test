@@ -5,7 +5,7 @@ import { enumUtils, parser } from '@/utils'
 <template>
   <div class="p-5">
     <div class="h3 pb-2">
-      User profile of <b>{{ enumUtils.role(user.role) }}</b>
+      User profile of <b>{{ user.username }}</b>
     </div>
     <div class="bg-light rounded p-3 mb-3">
       <div class="mb-3" style="text-align: justify;">

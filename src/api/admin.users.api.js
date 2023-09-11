@@ -8,6 +8,7 @@ const baseUrl = `${import.meta.env.VITE_API_URL}/users`;
 export const adminUsersApi = {
     get: get(),
     remove: remove(),
+    getSingle: getSingle(),
     create: create()
 };
 
@@ -15,6 +16,13 @@ export const adminUsersApi = {
 function get() {
     return async () => {
         return fetchWrapper.get(baseUrl);
+    }
+}
+
+// get user by id
+function getSingle() {
+    return async (id) => {
+        return fetchWrapper.get(`${baseUrl}/${id}`);
     }
 }
 
