@@ -32,17 +32,17 @@
           token expire: {{ this.metrics.jwt??'none' }} minutes
         </div>
       </div>
-      <div class="col-12 bg-info rounded p-3">
+      <div class="col-12 bg-primary text-light rounded p-3">
         <div>
           core address: <b>{{ this.metrics.core??'none' }}</b>
         </div>
       </div>
-      <div class="col-12 bg-danger text-light rounded p-3">
+      <div class="col-12 bg-secondary text-light rounded p-3">
         <div>
           ftp address: <b>{{ this.metrics.ftp??'none' }}</b>
         </div>
       </div>
-      <div class="col-12 bg-success text-light rounded p-3">
+      <div class="col-12 bg-dark text-light rounded p-3">
         <div>
           database address: <b>{{ this.metrics.mysql??'none' }}</b>
         </div>
