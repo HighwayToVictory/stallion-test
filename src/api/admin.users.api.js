@@ -1,7 +1,7 @@
 import { fetchWrapper } from '@/helpers';
 
 // backend admin api address
-const baseUrl = `${import.meta.env.VITE_API_URL}/admin/users`;
+const baseUrl = `${import.meta.env.VITE_API_URL}/users`;
 
 
 // adminUsersApi handles the http requests to users at admin group
