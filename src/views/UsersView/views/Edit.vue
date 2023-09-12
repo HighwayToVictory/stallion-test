@@ -73,14 +73,14 @@
       return {
         username: "",
         password: "",
-        role: "",
+        role: "1",
         user_id: 0,
         user: ""
       }
     },
     methods: {
       async update() {
-        await adminUsersApi.create(this.user_id, this.username, this.password, parseInt(this.role));
+        await adminUsersApi.update(this.user_id, this.username, this.password, parseInt(this.role));
 
         const alertStore = useAlertStore();
         alertStore.success("User updated!");
@@ -95,7 +95,6 @@
       this.user = await adminUsersApi.getSingle(this.user_id);
 
       this.username = this.user.username;
-      this.password = this.user.password;
       this.role = this.user.role;
     }
   }

@@ -82,7 +82,6 @@ export default {
     async mounted() {
         this.user = await userApi.get();
         this.username = this.user.username;
-        this.password = this.user.password;
     }
 }
 </script>
