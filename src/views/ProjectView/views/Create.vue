@@ -215,7 +215,7 @@ export default {
       const alertStore = useAlertStore();
       alertStore.success("Project created!");
 
-      router.push('/');
+      router.push('/dashboard');
     },
     addLabel() {
       if (this.labelKey.length == 0 || this.labelValue.length == 0) {
