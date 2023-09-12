@@ -77,11 +77,24 @@ import { metricsApi } from '@/api';
 export default {
   data() {
     return {
-      metrics: undefined
+      metrics: undefined,
+      timeline: []
+    }
+  },
+  methods: {
+    async pullMetrics() {
+      this.metrics = await metricsApi.get();
+      this.timeline.push({
+        "time": new Date(),
+        "metrics": this.metrics
+      });
+      console.log(this.timeline);
     }
   },
   async mounted() {
-    this.metrics = await metricsApi.get();
+    await this.pullMetrics();
+    
+    setInterval(this.pullMetrics, 5000);
   }
 }
 </script>
