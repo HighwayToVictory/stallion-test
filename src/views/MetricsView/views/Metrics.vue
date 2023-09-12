@@ -35,26 +35,6 @@
             database address: <b>{{ this.metrics.mysql??'none' }}</b>
           </div>
         </div>
-        <div class="col bg-primary text-light rounded p-3">
-          <div>
-            failed requests: {{ this.metrics.metrics.failed_requests??'none' }}
-          </div>
-        </div>
-        <div class="col bg-secondary text-light rounded p-3">
-          <div>
-            successful requests: {{ this.metrics.metrics.successful_requests??'none' }}
-          </div>
-        </div>
-        <div class="col bg-dark text-light rounded p-3">
-          <div>
-            downloads: {{ this.metrics.metrics.total_downloads??'none' }}
-          </div>
-        </div>
-        <div class="col bg-light rounded p-3">
-          <div>
-            executes: {{ this.metrics.metrics.total_executes??'none' }}
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -66,60 +46,114 @@ import { metricsApi } from '@/api';
 
 export default {
   data() {
+    this.entitiesChart = null
+    this.requestsChart = null
     return {
+      count: 0,
       metrics: undefined,
-      timeline: []
     }
   },
   methods: {
+    addDataToRequests(failed, success, download, execute) {
+      const date = new Date();
+      this.requestsChart.data.labels.push(`${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`);
+      this.requestsChart.data.datasets[0].data.push(10);
+      this.requestsChart.data.datasets[1].data.push(1);
+      this.requestsChart.data.datasets[2].data.push(20);
+      this.requestsChart.data.datasets[3].data.push(1);
+
+      this.requestsChart.update();
+
+      if (this.count == 5) {
+        this.requestsChart.data.labels.shift();
+        this.requestsChart.data.datasets[0].data.shift();
+        this.requestsChart.data.datasets[1].data.shift();
+        this.requestsChart.data.datasets[2].data.shift();
+        this.requestsChart.data.datasets[3].data.shift();
+        this.requestsChart.update();
+      } else {
+        this.count++;
+      }
+    },
+    addDataToCharts(namespaces, users, metrics) {
+      this.entitiesChart.data.datasets[0].data = [namespaces, users, metrics];  
+      this.entitiesChart.update();
+    },
     async pullMetrics() {
       this.metrics = await metricsApi.get();
-      this.timeline.push({
-        "time": new Date(),
-        "metrics": this.metrics
-      });
-
-      const ctx = document.getElementById('entities');
-      const requests_ctx = document.getElementById('requests');
-
-      new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: ['namespaces', 'users', 'projects'],
-          datasets: [{
-            label: '# of entities',
-            data: [this.metrics.namespaces, this.metrics.users, this.metrics.metrics.total_projects],
-            borderWidth: 2
-          }]
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true
-            }
-          }
-        }
-      });
-
-      new Chart(requests_ctx, {
-        type: 'line',
-        labels: ["1","2","3","4","5","6","7","8","9","10"],
-        datasets: [
-          {
-            label: 'failed',
-            data: [1,2,3,3,4,5,7,8,9,10],
-            fill: true,
-            borderColor: 'rgb(75, 192, 192)',
-            tension: 0.1
-          }
-        ]
-      });
+      this.addDataToCharts(
+        this.metrics.namespaces, 
+        this.metrics.users, 
+        this.metrics.metrics.total_projects
+      );
+      this.addDataToRequests(
+        this.metrics.metrics.failed_requests,
+        this.metrics.metrics.successful_requests,
+        this.metrics.metrics.total_downloads,
+        this.metrics.metrics.total_executes
+      );
     }
   },
   async mounted() {
+    this.entitiesChart = new Chart(document.getElementById('entities'), {
+      type: 'bar',
+      data: {
+        labels: ['namespaces', 'users', 'projects'],
+        datasets: [{
+          label: '# of entities',
+          data: []
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    this.requestsChart = new Chart(document.getElementById('requests'), {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [
+          {
+            label: 'failed requests',
+            data: [],
+            fill: false,
+            borderColor: 'rgb(192, 75, 75)',
+            tension: 0.1
+          },
+          {
+            label: 'successful requests',
+            data: [],
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+          },
+          {
+            label: 'downloads',
+            data: [],
+            fill: false,
+            borderColor: 'rgb(75, 75, 192)',
+            tension: 0.1
+          },
+          {
+            label: 'executes',
+            data: [],
+            fill: false,
+            borderColor: 'rgb(75, 192, 75)',
+            tension: 0.1
+          }
+        ]
+      }
+    });
+
     await this.pullMetrics();
 
-    setInterval(this.pullMetrics, 5000);
+    setInterval(this.pullMetrics, 2000);
   }
 }
 </script>
