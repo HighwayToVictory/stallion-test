@@ -4,10 +4,10 @@
         Updating user <b>{{ user.username }}</b>
       </div>
       <div class="bg-light rounded p-3 mb-3">
-      <div class="mb-3" style="text-align: justify;">
-        Update your profile settings. Be careful when your changing your credentials because
-        you cannot restore them if you forget them. In case of any problem, contact one the admins.
-      </div>
+        <div class="mb-3" style="text-align: justify;">
+          Update your profile settings. Be careful when your changing your credentials because
+          you cannot restore them if you forget them. In case of any problem, contact one the admins.
+        </div>
       </div>
       <div class="bg-light rounded p-3">
         <div class="row p-0 m-0 mb-4 pt-4" style="grid-column-gap: 20px;"> 
