@@ -40,13 +40,13 @@ function remove() {
 
 // update namespace users
 function update() {
-    return async (id, user_ids) => {
+    return async (id, name, user_ids) => {
         const body = {
-            "namespace_id": id,
+            "name": name,
             "user_ids": user_ids
         };
 
-        return fetchWrapper.put(baseUrl, body);
+        return fetchWrapper.put(`${baseUrl}/${id}`, body);
     }
 }
 
