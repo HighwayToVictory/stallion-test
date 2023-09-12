@@ -1,9 +1,9 @@
 <template>
   <div class="p-5">
-    <div class="h3 pb-2">
+    <div class="h3 pb-2 mb-3">
       Create User
     </div>
-    <div class="bg-light rounded p-3 mb-3">
+    <div class="bg-light rounded p-3">
       <div class="form-outline mb-4">
         <input type="text" v-model="username" class="form-control" placeholder="admin ..." />
         <label class="form-label" for="username">
