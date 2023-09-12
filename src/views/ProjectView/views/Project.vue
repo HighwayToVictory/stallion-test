@@ -11,7 +11,7 @@ const authStore = useAuthStore();
             Viewing poject <b>{{ project.name }}</b>
         </div>
         <div class="bg-light rounded p-3">
-            <div class="d-flex justify-content-between align-items-center mb-5">
+            <div class="d-flex justify-content-between align-items-center mb-3">
                 <div class="badge bg-dark">
                     Target address: <b>{{ project.host }}</b>
                 </div>
@@ -26,7 +26,26 @@ const authStore = useAuthStore();
                 <textarea class="w-100 p-3" :value="project.description" disabled></textarea>
             </div>
             <div class="my-3" v-if="project.labels && project.labels.length > 0">
+                <div class="h6 mb-3">
+                    Labels
+                </div>
                 <span class="badge bg-primary m-1" v-for="item in project.labels" :key="item.key">
+                    {{ item.key + " = " + item.value }}
+                </span>
+            </div>
+            <div class="my-3" v-if="project.endpoints && project.endpoints.length > 0">
+                <div class="h6 mb-3">
+                    Endpoints
+                </div>
+                <small class="bg-info text-light p-2 rounded m-1" v-for="item in project.endpoints" :key="item">
+                    {{ project.host + item }}
+                </small>
+            </div>
+            <div class="my-3" v-if="project.params && project.params.length > 0">
+                <div class="h6 mb-3">
+                    Parameters
+                </div>
+                <span class="badge bg-warning m-1" v-for="item in project.params" :key="item.key">
                     {{ item.key + " = " + item.value }}
                 </span>
             </div>
@@ -39,7 +58,7 @@ const authStore = useAuthStore();
                     testing for a project. Each document is a certificate for an spicific attack that was performed on your
                     host. You see the attack results in their log files.
                 </div>
-                <div class="row m-0 p-0 rounded bg-white my-1 p-1" v-for="item in project.documents" :key="item.id">
+                <div :class="getRowClassList(item.result)" v-for="item in project.documents" :key="item.id">
                     <div class="col">
                         {{ item.instruction }}
                     </div>
@@ -53,8 +72,13 @@ const authStore = useAuthStore();
                             {{ "Executed at: " + parser.parseTime(item.created_at) }}
                         </span>
                     </div>
+                    <div class="col">
+                        <span class="badge bg-info">
+                            execution time: {{ item.execution_time||'not set' }}
+                        </span>
+                    </div>
                     <div class="col" style="text-align: center;">
-                        <a v-on:click="download(item.id)" class="btn btn-sm btn-secondary" download>
+                        <a v-on:click="download(item.id)" class="btn btn-sm btn-light" download>
                             view log file
                         </a>
                     </div>
@@ -65,7 +89,7 @@ const authStore = useAuthStore();
                 testing on your host. Just click the button below. If you are a viewer, you cannot execute the project.
                 Project execution is only available for admins and developers.
             </div>
-            <button v-if="authStore.user() || authStore.admin()" v-on:click="execute" class="btn mt-2" :class="this.executealbe ? 'btn-success' : 'btn-warning disabled'">
+            <button v-if="authStore.user() || authStore.admin()" v-on:click="execute" class="btn mt-3" :class="this.executealbe ? 'btn-primary' : 'btn-warning disabled'">
                 <svg v-if="this.executealbe" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi me-2 bi-skip-start-circle-fill" viewBox="0 0 16 16">
                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM9.71 5.093 7 7.028V5.5a.5.5 0 0 0-1 0v5a.5.5 0 0 0 1 0V8.972l2.71 1.935a.5.5 0 0 0 .79-.407v-5a.5.5 0 0 0-.79-.407z"/>
                 </svg>
@@ -133,6 +157,24 @@ export default {
         async reloadProject() {
             this.project = await projectsApi.getSingle(this.namespace_id, this.project_id);
             this.checkExec();
+        },
+        getRowClassList(result) {
+            let list = "row m-0 p-0 rounded my-1 p-1";
+            let bg = "bg-white";
+
+            switch (result) {
+                case 2:
+                    bg = "bg-success text-light";
+                    break;
+                case 3:
+                    bg = "bg-danger text-light";
+                    break;
+                case 4:
+                    bg = "bg-warning";
+                    break;
+            }
+
+            return list + " " + bg;
         }
     },
     async mounted() {
