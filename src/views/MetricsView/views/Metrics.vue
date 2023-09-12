@@ -11,32 +11,32 @@
         This page <span style="color: darkred;">does not</span> provide actions to change cluster settings.
       </div>
     </div>
-    <canvas class="my-3" id="entities"></canvas>
-    <canvas class="my-3" id="requests"></canvas>
     <div v-if="metrics">
-      <div class="row p-0 m-0" style="grid-column-gap: 20px; grid-row-gap: 20px; ">
-        <div class="col bg-primary text-light rounded p-3">
+      <div class="row p-0 m-0 mb-3" style="grid-column-gap: 20px; grid-row-gap: 20px; ">
+        <div class="col-12 bg-light rounded p-1">
           <div>
             token expire: {{ this.metrics.jwt??'none' }} minutes
           </div>
         </div>
-        <div class="col-12 bg-primary text-light rounded p-3">
+        <div class="col-12 bg-light rounded p-1">
           <div>
             core address: <b>{{ this.metrics.core??'none' }}</b>
           </div>
         </div>
-        <div class="col-12 bg-secondary text-light rounded p-3">
+        <div class="col-12 bg-light rounded p-1">
           <div>
             ftp address: <b>{{ this.metrics.ftp??'none' }}</b>
           </div>
         </div>
-        <div class="col-12 bg-dark text-light rounded p-3">
+        <div class="col-12 bg-light rounded p-1">
           <div>
             database address: <b>{{ this.metrics.mysql??'none' }}</b>
           </div>
         </div>
       </div>
     </div>
+    <canvas class="my-3" id="entities"></canvas>
+    <canvas class="my-3" id="requests"></canvas>
   </div>
 </template>
 
@@ -50,6 +50,7 @@ export default {
     this.requestsChart = null
     return {
       count: 0,
+      limit: 20,
       metrics: undefined,
     }
   },
@@ -57,14 +58,14 @@ export default {
     addDataToRequests(failed, success, download, execute) {
       const date = new Date();
       this.requestsChart.data.labels.push(`${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`);
-      this.requestsChart.data.datasets[0].data.push(10);
-      this.requestsChart.data.datasets[1].data.push(1);
-      this.requestsChart.data.datasets[2].data.push(20);
-      this.requestsChart.data.datasets[3].data.push(1);
+      this.requestsChart.data.datasets[0].data.push(failed);
+      this.requestsChart.data.datasets[1].data.push(success);
+      this.requestsChart.data.datasets[2].data.push(download);
+      this.requestsChart.data.datasets[3].data.push(execute);
 
       this.requestsChart.update();
 
-      if (this.count == 5) {
+      if (this.count == this.limit) {
         this.requestsChart.data.labels.shift();
         this.requestsChart.data.datasets[0].data.shift();
         this.requestsChart.data.datasets[1].data.shift();
