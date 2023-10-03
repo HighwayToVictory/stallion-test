@@ -11,7 +11,7 @@ export default [
         }
     },
     {
-        path: '/projects/:namespace/:id',
+        path: '/projects/:id',
         component: Project,
         meta: {
             requiresAuth: true

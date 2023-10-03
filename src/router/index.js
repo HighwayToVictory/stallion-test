@@ -3,14 +3,12 @@ import { useAuthStore } from '@/stores';
 
 
 import usersRoutes from './users.routes';
-import namespaceRoute from './namespace.route';
-import projectRoute from './project.route';
+import projectsRoutes from './projects.routes';
 
 
 import { Home, Dashboard } from '@/views/HomeView';
 import { Metrics } from '@/views/MetricsView';
 import { Login } from '@/views/LoginView';
-import { Profile } from '@/views/UsersView';
 import { About } from '@/views/AboutView';
 
 
@@ -48,13 +46,6 @@ const router = createRouter({
       }
     },
     {
-      path: '/profile',
-      component: Profile,
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
       path: '/about',
       name: 'about',
       component: About,
@@ -63,12 +54,11 @@ const router = createRouter({
       }
     },
     ...usersRoutes,
-    ...namespaceRoute,
-    ...projectRoute,
+    ...projectsRoutes,
   ]
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     const authStore = useAuthStore();
 
@@ -86,26 +76,7 @@ router.beforeEach((to, from, next) => {
         authStore.logout();
       }
 
-      // check admin and user routes
-      if (to.matched.some(record => record.meta.adminRoute)) {
-        if (parts['role'] == 1) {
-          next();
-        } else {
-          next({
-            path: from.path,
-          });
-        }
-      } else if (to.matched.some(record => record.meta.userRoute)) {
-        if (parts['role'] == 1 || parts['role'] == 2) {
-          next();
-        } else {
-          next({
-            path: from.path,
-          });
-        }
-      } else {
-        next();
-      } 
+      next(); 
     }
   } else {
     next();

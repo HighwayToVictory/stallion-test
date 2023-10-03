@@ -1,4 +1,4 @@
-import { Users, Create, Edit } from '@/views/UsersView'
+import { Users, Create } from '@/views/UsersView'
 
 
 export default [
@@ -13,14 +13,6 @@ export default [
     {
         path: '/users/new',
         component: Create,
-        meta: {
-            requiresAuth: true,
-            adminRoute: true
-        }
-    },
-    {
-        path: '/users/edit/:id',
-        component: Edit,
         meta: {
             requiresAuth: true,
             adminRoute: true
