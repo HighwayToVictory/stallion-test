@@ -23,15 +23,15 @@ function getAll() {
 
 // get single project
 function get() {
-    return async (project_id) => {
-        return fetchWrapper.get(`${baseUrl}/${project_id}`);
+    return async (id) => {
+        return fetchWrapper.get(`${baseUrl}/${id}`);
     }
 }
 
 // download document
 function download() {
-    return (project_id, id) => {
-        return `${baseUrl}/${project_id}/documents/${id}`;
+    return (id, document_id) => {
+        return `${baseUrl}/${id}/documents/${document_id}`;
     }
 }
 
@@ -50,31 +50,31 @@ function create() {
             "endpoints": endpoints
         };
 
-        return fetchWrapper.post(`${baseUrl}`, body);
+        return fetchWrapper.post(baseUrl, body);
     }
 }
 
 // remove a project
 function remove() {
-    return async (project_id) => {
-        return fetchWrapper.delete(`${baseUrl}/${project_id}`);
+    return async (id) => {
+        return fetchWrapper.delete(`${baseUrl}/${id}`);
     }
 }
 
 // execute a project
 function execute() {
-    return async (project_id) => {
+    return async (id) => {
         const body = {}
 
-        return fetchWrapper.post(`${baseUrl}/${project_id}`, body);
+        return fetchWrapper.post(`${baseUrl}/${id}`, body);
     }
 }
 
 // rerun a document
 function rerun() {
-    return async (project_id, id) => {
+    return async (id, document_id) => {
         const body = {}
 
-        return fetchWrapper.post(`${baseUrl}/${project_id}/documents/${id}`, body);
+        return fetchWrapper.post(`${baseUrl}/${id}/documents/${document_id}`, body);
     }
 }
