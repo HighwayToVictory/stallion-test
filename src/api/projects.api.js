@@ -1,33 +1,80 @@
 import { fetchWrapper } from '@/helpers';
 
 const baseUrl = `${import.meta.env.VITE_API_URL}/projects`;
-const namespacesBaseUrl = `${import.meta.env.VITE_API_URL}/namespaces`;
 
 
-// projectsApi manages the projects get endpoints
+// projectsApi manages the projects endpoints
 export const projectsApi = {
+    getAll: getAll(),
     get: get(),
-    getSingle: getSingle(),
-    download: download()
+    download: download(),
+    create: create(),
+    remove: remove(),
+    execute: execute(),
+    rerun: rerun()
 };
 
 // get all projects
-function get() {
-    return async (namespace_id) => {
-        return fetchWrapper.get(`${namespacesBaseUrl}/${namespace_id}`);
+function getAll() {
+    return async () => {
+        return fetchWrapper.get(baseUrl);
     }
 }
 
 // get single project
-function getSingle() {
-    return async (namespace_id, project_id) => {
-        return fetchWrapper.get(`${baseUrl}/${namespace_id}/${project_id}`);
+function get() {
+    return async (project_id) => {
+        return fetchWrapper.get(`${baseUrl}/${project_id}`);
     }
 }
 
 // download document
 function download() {
-    return (namespace_id, project_id, id) => {
-        return `${baseUrl}/${namespace_id}/${project_id}/${id}`;
+    return (project_id, id) => {
+        return `${baseUrl}/${project_id}/documents/${id}`;
+    }
+}
+
+// create a new project
+function create() {
+    return async (creator, name, host, port, description, labels, params, endpoints, secure) => {
+        const body = {
+            "name": name,
+            "host": host,
+            "port": port,
+            "creator": creator,
+            "description": description,
+            "http_secure": secure,
+            "labels": labels,
+            "params": params,
+            "endpoints": endpoints
+        };
+
+        return fetchWrapper.post(`${baseUrl}`, body);
+    }
+}
+
+// remove a project
+function remove() {
+    return async (project_id) => {
+        return fetchWrapper.delete(`${baseUrl}/${project_id}`);
+    }
+}
+
+// execute a project
+function execute() {
+    return async (project_id) => {
+        const body = {}
+
+        return fetchWrapper.post(`${baseUrl}/${project_id}`, body);
+    }
+}
+
+// rerun a document
+function rerun() {
+    return async (project_id, id) => {
+        const body = {}
+
+        return fetchWrapper.post(`${baseUrl}/${project_id}/documents/${id}`, body);
     }
 }

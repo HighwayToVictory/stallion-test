@@ -3,7 +3,7 @@ import { fetchWrapper } from '@/helpers';
 const baseUrl = `${import.meta.env.VITE_API_URL}/metrics`;
 
 
-// userProjectsApi manages the projects crud by users group
+// metricsApi handles the metrics requests
 export const metricsApi = {
     get: get()
 };
