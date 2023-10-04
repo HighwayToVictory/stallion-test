@@ -23,20 +23,10 @@ const authStore = useAuthStore();
       <div class="row m-0 g-2" style="grid-column-gap: 20px;">
         <div class="col p-3 bg-light rounded">
           <div class="mb-3">
-            Select a namespace from the list below which contains your available namespaces:
-          </div>
-          <select v-model="namespace" class="form-select" aria-label=".form-select-sm example">
-            <option v-for="item in namespaces" :key="item.id" :value="item">
-              {{ item.name }}
-            </option>
-          </select>
-        </div>
-        <div class="col p-3 bg-light rounded">
-          <div class="mb-3">
             Create a new project into your namespaces in order to perform your tests:
           </div>
           <div>
-            <RouterLink style="width: 100%;" v-if="authStore.user() || authStore.admin()" to="/projects/new" type="button" class="btn btn-success btn-block">
+            <RouterLink style="width: 100%;" to="/projects/new" type="button" class="btn btn-success btn-block">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi me-2 bi-plus-square-dotted" viewBox="0 0 16 16">
                 <path d="M2.5 0c-.166 0-.33.016-.487.048l.194.98A1.51 1.51 0 0 1 2.5 1h.458V0H2.5zm2.292 0h-.917v1h.917V0zm1.833 0h-.917v1h.917V0zm1.833 0h-.916v1h.916V0zm1.834 0h-.917v1h.917V0zm1.833 0h-.917v1h.917V0zM13.5 0h-.458v1h.458c.1 0 .199.01.293.029l.194-.981A2.51 2.51 0 0 0 13.5 0zm2.079 1.11a2.511 2.511 0 0 0-.69-.689l-.556.831c.164.11.305.251.415.415l.83-.556zM1.11.421a2.511 2.511 0 0 0-.689.69l.831.556c.11-.164.251-.305.415-.415L1.11.422zM16 2.5c0-.166-.016-.33-.048-.487l-.98.194c.018.094.028.192.028.293v.458h1V2.5zM.048 2.013A2.51 2.51 0 0 0 0 2.5v.458h1V2.5c0-.1.01-.199.029-.293l-.981-.194zM0 3.875v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zM0 5.708v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zM0 7.542v.916h1v-.916H0zm15 .916h1v-.916h-1v.916zM0 9.375v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zm-16 .916v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zm-16 .917v.458c0 .166.016.33.048.487l.98-.194A1.51 1.51 0 0 1 1 13.5v-.458H0zm16 .458v-.458h-1v.458c0 .1-.01.199-.029.293l.981.194c.032-.158.048-.32.048-.487zM.421 14.89c.183.272.417.506.69.689l.556-.831a1.51 1.51 0 0 1-.415-.415l-.83.556zm14.469.689c.272-.183.506-.417.689-.69l-.831-.556c-.11.164-.251.305-.415.415l.556.83zm-12.877.373c.158.032.32.048.487.048h.458v-1H2.5c-.1 0-.199-.01-.293-.029l-.194.981zM13.5 16c.166 0 .33-.016.487-.048l-.194-.98A1.51 1.51 0 0 1 13.5 15h-.458v1h.458zm-9.625 0h.917v-1h-.917v1zm1.833 0h.917v-1h-.917v1zm1.834-1v1h.916v-1h-.916zm1.833 1h.917v-1h-.917v1zm1.833 0h.917v-1h-.917v1zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
               </svg>
@@ -47,7 +37,7 @@ const authStore = useAuthStore();
       </div>
     </div>
     <div class="bg-light rounded p-3 my-3">
-      <div v-if="this.namespace != null">
+      <div>
         <div class="pb-2 d-flex justify-content-between">
           <div class="h4">
             namespace projects
@@ -73,7 +63,7 @@ const authStore = useAuthStore();
             </button>
           </div>
         </div>
-        <div v-if="this.projects.length > 0">
+        <div>
           <table class="table table-bordered">
             <thead>
               <tr>
@@ -99,14 +89,14 @@ const authStore = useAuthStore();
                   {{  project['created_by']??'not set' }}
                 </td>
                 <td style="text-align: center;">
-                  <button v-if="authStore.user() || authStore.admin()" v-on:click="deleteProject(project['id'])" class="btn btn-danger btn-sm text-left" style="margin-right: 5px;">
+                  <button v-on:click="deleteProject(project['id'])" class="btn btn-danger btn-sm text-left" style="margin-right: 5px;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder-x me-2" viewBox="0 0 16 16">
                       <path d="M.54 3.87.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181L15.546 8H14.54l.265-2.91A1 1 0 0 0 13.81 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91H9v1H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31zm6.339-1.577A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707z"/>
                       <path d="M11.854 10.146a.5.5 0 0 0-.707.708L12.293 12l-1.146 1.146a.5.5 0 0 0 .707.708L13 12.707l1.146 1.147a.5.5 0 0 0 .708-.708L13.707 12l1.147-1.146a.5.5 0 0 0-.707-.708L13 11.293l-1.146-1.147z"/>
                     </svg>
                     delete project
                   </button>
-                  <RouterLink :to="`/projects/${this.namespace.id}/${project.id}`" class="btn btn-primary btn-sm text-left">
+                  <RouterLink :to="`/projects/${project.id}`" class="btn btn-primary btn-sm text-left">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill me-2" viewBox="0 0 16 16">
                       <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
                       <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
@@ -117,9 +107,6 @@ const authStore = useAuthStore();
               </tr>
             </tbody>
           </table>
-        </div>
-        <div v-else>
-          No projects!
         </div>
       </div>
     </div>
@@ -134,9 +121,7 @@ export default {
   data() {
     return {
       user: "",
-      namespaces: [],
       projects: [],
-      namespace: null,
       sortStatus: new Map([
         ["date", "down"],
         ["name", "down"]
@@ -144,10 +129,6 @@ export default {
     }
   },
   methods: {
-    async select(namespace) {
-      let tmp = await projectsApi.getAll();
-      this.projects = tmp.projects;
-    },
     async deleteProject(id) {
       await projectsApi.remove(id);
       
@@ -177,23 +158,14 @@ export default {
   },
   async mounted() {
     const authStore = useAuthStore();
-
     this.user = authStore.username();
 
-    let tmp = await projectsApi.getAll();
-    this.projects = tmp.projects;
+    this.projects = await projectsApi.getAll();
   },
   computed: {
     projectsList() {
       return this.projects;
     }
-  },
-  watch: {
-    namespace: async function(n, o) {
-      if (n !== o) {
-        await this.select(n);
-      }
-    },
   }
 }
 </script>
