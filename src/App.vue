@@ -11,13 +11,9 @@ const authStore = useAuthStore();
 <template>
   <div>
     <Alert style="position: fixed; left: 50%; transform: translate(-50%, 0); top: 20px;" />
-    <div class="row p-0 m-0" style="min-height: -webkit-fill-available;">
-      <div class="col-2 p-0 m-0" style="min-height: -webkit-fill-available;">
-        <Navigation style="position: fixed; top: 0; left:0; width: inherit;" v-if="authStore.token" />
-      </div>
-      <div v-bind:class="authStore.token ? 'col-10' : 'col-12'" style="min-height: -webkit-fill-available;">
-        <RouterView />
-      </div>
+    <Navigation class="shadow" style="position: fixed; top: 0; width: 100%; height: 50px;" v-if="authStore.token" />
+    <div style="margin-top: 30px; min-height: -webkit-fill-available;">
+      <RouterView />
     </div>
   </div>
 </template>

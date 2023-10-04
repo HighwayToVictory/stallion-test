@@ -6,14 +6,14 @@ const authStore = useAuthStore();
 </script>
 
 <template>
-  <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="height: 100vh;">
-    <RouterLink to="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+  <div class="d-flex flex-row align-items-center justify-content-between flex-shrink-0 p-3 text-white bg-dark" style="height: 100vh;">
+    <RouterLink to="/" class="d-flex align-items-center mb-3 mb-md-0 text-white text-decoration-none">
       <span class="fs-4">
-        APT Dashboard
+        PTaaS Dashboard
       </span>
     </RouterLink>
     <hr>
-    <ul class="nav nav-pills flex-column mb-auto">
+    <ul class="nav nav-pills flex-row align-items-center">
       <li class="nav-item">
         <RouterLink to="/" class="nav-link text-white" aria-current="page" active-class="active">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-fill me-2" viewBox="0 0 16 16">
