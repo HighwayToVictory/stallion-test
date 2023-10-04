@@ -127,8 +127,7 @@ export default {
     async deleteProject(id) {
       await projectsApi.remove(id);
       
-      let tmp = await projectsApi.getAll();
-      this.projects = tmp.projects;
+      this.projects = await projectsApi.getAll();
     },
     compareObj(field, reverse) {
       return (a, b) => {

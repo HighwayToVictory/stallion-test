@@ -1,14 +1,11 @@
 <script setup>
 import { parser, enumUtils } from '@/utils';
-import { useAuthStore } from '@/stores';
-
-const authStore = useAuthStore();
 </script>
 
 <template>
-    <div class="p-5">
+    <div class="p-5 rounded shadow m-5">
         <div class="h3 pb-2 mb-3">
-            Viewing poject <b>{{ project.name }}</b>
+            Project <b>{{ project.name }}</b>
         </div>
         <div class="bg-light rounded p-3">
             <div class="d-flex justify-content-between align-items-center mb-3">
@@ -37,7 +34,7 @@ const authStore = useAuthStore();
                 <div class="h6 mb-3">
                     Endpoints
                 </div>
-                <small class="bg-info text-light p-2 rounded m-1" v-for="item in project.endpoints" :key="item">
+                <small class="bg-primary text-light p-2 rounded m-1" v-for="item in project.endpoints" :key="item">
                     {{ project.host + item }}
                 </small>
             </div>
@@ -45,7 +42,7 @@ const authStore = useAuthStore();
                 <div class="h6 mb-3">
                     Parameters
                 </div>
-                <span class="badge bg-warning m-1" v-for="item in project.params" :key="item.key">
+                <span class="badge bg-primary m-1" v-for="item in project.params" :key="item.key">
                     {{ item.key + " = " + item.value }}
                 </span>
             </div>
