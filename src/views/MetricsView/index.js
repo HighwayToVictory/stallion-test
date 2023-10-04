@@ -1,1 +1,0 @@
-export { default as Metrics } from './views/Metrics.vue';

@@ -7,7 +7,6 @@ import projectsRoutes from './projects.routes';
 
 
 import { Home, Dashboard } from '@/views/HomeView';
-import { Metrics } from '@/views/MetricsView';
 import { Login } from '@/views/LoginView';
 import { About } from '@/views/AboutView';
 
@@ -34,15 +33,6 @@ const router = createRouter({
       component: Dashboard,
       meta: {
         requiresAuth: true
-      }
-    },
-    {
-      path: '/metrics',
-      name: 'metrics',
-      component: Metrics,
-      meta: {
-        requiresAuth: true,
-        adminRoute: true
       }
     },
     {
