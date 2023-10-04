@@ -89,7 +89,7 @@ const authStore = useAuthStore();
                 testing on your host. Just click the button below. If you are a viewer, you cannot execute the project.
                 Project execution is only available for admins and developers.
             </div>
-            <button v-if="authStore.user() || authStore.admin()" v-on:click="execute" class="btn mt-3" :class="this.executealbe ? 'btn-primary' : 'btn-warning disabled'">
+            <button v-on:click="execute" class="btn mt-3" :class="this.executealbe ? 'btn-primary' : 'btn-warning disabled'">
                 <svg v-if="this.executealbe" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi me-2 bi-skip-start-circle-fill" viewBox="0 0 16 16">
                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM9.71 5.093 7 7.028V5.5a.5.5 0 0 0-1 0v5a.5.5 0 0 0 1 0V8.972l2.71 1.935a.5.5 0 0 0 .79-.407v-5a.5.5 0 0 0-.79-.407z"/>
                 </svg>
@@ -98,7 +98,7 @@ const authStore = useAuthStore();
                 </svg>
                 {{ this.executealbe ? 'execute tests' : 'wait ...' }}
             </button>
-            <button v-if="(authStore.user() || authStore.admin()) && !this.executealbe" class="btn btn-primary mt-2" style="margin-inline-start: 5px;" v-on:click="reloadProject">
+            <button v-if="!this.executealbe" class="btn btn-primary mt-2" style="margin-inline-start: 5px;" v-on:click="reloadProject">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi me-2 bi-arrow-counterclockwise" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
                     <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"/>
@@ -178,7 +178,6 @@ export default {
     async mounted() {
         const route = useRoute();
 
-        this.namespace_id = route.params.namespace;
         this.project_id = route.params.id;
         this.project = await projectsApi.get(this.project_id);
 
