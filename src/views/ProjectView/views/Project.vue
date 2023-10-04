@@ -7,7 +7,7 @@ import { parser, enumUtils } from '@/utils';
         <div class="h3 pb-2 mb-3">
             Project <b>{{ project.name }}</b>
         </div>
-        <div class="bg-light rounded p-3">
+        <div class="bg-light shadow rounded p-3">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <div class="badge bg-dark">
                     Target address: <b>{{ project.host }}</b>
@@ -46,6 +46,8 @@ import { parser, enumUtils } from '@/utils';
                     {{ item.key + " = " + item.value }}
                 </span>
             </div>
+        </div>
+        <div class="bg-light shadow rounded p-3 mt-3">
             <div v-if="project.documents && project.documents.length > 0">
                 <div class="h5 mb-3">
                     Documents
@@ -154,7 +156,7 @@ export default {
             this.checkExec();
         },
         getRowClassList(result) {
-            let list = "row m-0 p-0 rounded my-1 p-1";
+            let list = "row shadow m-0 p-0 rounded my-3 p-1";
             let bg = "bg-white";
 
             switch (result) {

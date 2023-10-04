@@ -126,7 +126,6 @@ export default {
   methods: {
     async deleteProject(id) {
       await projectsApi.remove(id);
-      
       this.projects = await projectsApi.getAll();
     },
     compareObj(field, reverse) {
