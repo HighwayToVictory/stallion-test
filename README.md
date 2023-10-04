@@ -24,6 +24,7 @@ Make sure to create ```.env``` file with the following variable init:
 ```shell
 # backend url address which is the ptaas api
 VITE_API_URL=http://localhost:8080
+VITE_VERSION=v0.1.1
 ```
 
 ## Setup
