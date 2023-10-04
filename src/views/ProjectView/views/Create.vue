@@ -163,7 +163,7 @@
 
 <script>
 import { projectsApi } from '@/api';
-import { useAlertStore } from '@/stores';
+import { useAlertStore, useAuthStore } from '@/stores';
 import router from '@/router';
 
 export default {
@@ -186,7 +186,9 @@ export default {
   },
   methods: {
     async createProject() {
-      await projectsApi.create("", this.name, this.host, this.port, this.description, this.labels, this.params, this.endpoints, this.secure);
+      const authStore = useAuthStore();
+
+      await projectsApi.create(authStore.username(), this.name, this.host, this.port, this.description, this.labels, this.params, this.endpoints, this.secure);
 
       this.name = "";
       this.host = "";

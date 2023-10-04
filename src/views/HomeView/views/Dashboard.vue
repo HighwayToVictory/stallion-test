@@ -81,7 +81,7 @@ const authStore = useAuthStore();
                   {{ parser.parseTime(project['created_at']) }}
                 </td>
                 <td style="text-align: center;">
-                  {{  project['created_by']??'not set' }}
+                  {{  project['creator']??'not set' }}
                 </td>
                 <td style="text-align: center;">
                   <button v-on:click="deleteProject(project['id'])" class="btn btn-danger btn-sm text-left" style="margin-right: 5px;">
