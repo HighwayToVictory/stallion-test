@@ -1,8 +1,16 @@
 <template>
   <div style="margin-top: 150px;">
     <form class="m-auto shadow p-5 rounded w-25">
-      <div class="mb-5 h2 border-bottom pb-3">
-        PTaaS {{ version }} Login
+      <div class="mb-3 border-bottom pb-3 d-flex justify-content-between align-items-center">
+        <div class="h2">
+          PTaaS Login
+        </div>
+        <span class="badge bg-dark">
+          {{ version }}
+        </span>
+      </div>
+      <div class="mb-3">
+        Please login into system.
       </div>
       <div class="form-outline mb-4">
         <input type="text" id="username" class="form-control" placeholder="admin ..." />
@@ -55,7 +63,7 @@ export default {
     }
   },
   mounted() {
-    this.version = import.meta.env.VITE_API_URL;
+    this.version = import.meta.env.VITE_VERSION;
   }
 }
 </script>
