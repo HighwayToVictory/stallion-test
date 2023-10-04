@@ -2,7 +2,7 @@
   <div style="margin-top: 150px;">
     <form class="m-auto shadow p-5 rounded w-25">
       <div class="mb-5 h2 border-bottom pb-3">
-        PTaaS Login
+        PTaaS {{ version }} Login
       </div>
       <div class="form-outline mb-4">
         <input type="text" id="username" class="form-control" placeholder="admin ..." />
@@ -39,6 +39,11 @@
 import { useAuthStore } from '@/stores'
 
 export default {
+  data() {
+    return {
+      version: ""
+    }
+  },
   methods: {
     loginUser() {
       const authStore = useAuthStore();
@@ -48,6 +53,9 @@ export default {
 
       authStore.login(username, password);
     }
+  },
+  mounted() {
+    this.version = import.meta.env.VITE_API_URL;
   }
 }
 </script>
