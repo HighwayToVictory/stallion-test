@@ -1,8 +1,8 @@
 <template>
   <div style="margin-top: 150px;">
-    <form class="w-50">
+    <form class="m-auto shadow p-5 rounded w-25">
       <div class="mb-5 h2 border-bottom pb-3">
-        APT Login
+        PTaaS Login
       </div>
       <div class="form-outline mb-4">
         <input type="text" id="username" class="form-control" placeholder="admin ..." />
