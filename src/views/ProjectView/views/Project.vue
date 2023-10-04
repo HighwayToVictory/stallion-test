@@ -127,7 +127,9 @@ export default {
             const url = projectsApi.download(this.project_id, id);
 
             let file = await fetchWrapper.file(url);
-            window.location.assign(file);
+            if (file != null) {
+                window.location.assign(file);
+            }
         },
         async execute() {
             if (!this.executealbe) {
