@@ -1,12 +1,12 @@
 <template>
-  <div class="p-5">
+  <div class="p-5 rounded shadow m-5">
     <div class="h3 pb-2 mb-3">
       Home
     </div>
     <div class="bg-light rounded p-3">
       <div style="text-align: justify;">
-        Hi, welcome to <b>Automated Penetration Testing</b> application (aka <b>APT</b>). By using this application
-        you can perform penetration testing on your cloud based applications. <b>APT</b> attacks are only related to
+        Hi, welcome to <b>Penetration Testing as a Service</b> application (aka <b>PTaaS</b>). By using this application
+        you can perform penetration testing on your cloud based applications. <b>PTaaS</b> attacks are only related to
         application layer. Overall, this application tests <b>SaaS</b> applications.
         <br />
         This application tests your cloud services that are built based on the following architectures:
@@ -36,10 +36,11 @@
     <div class="bg-light rounded p-3 my-3">
       <div style="text-align: justify;">
         This application is created by a group of students at <b>the Amirkabir University of Tehran, Iran</b>.
-        You can get more information about us from our github <a href="https://github.com/apt-tool">organization</a>.
+        You can get more information about us from our github <a href="https://github.com/ptaas-tool">organization</a>.
         Feel free to share your comments with us by sending an email to <a href="mailto:amirhossein.najafizadeh21@gmail.com">
           amirhossein.najafizadeh
-        </a>. Thank you.
+        </a>.<br />
+        Thank you.
       </div>
     </div>
   </div>
