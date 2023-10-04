@@ -62,17 +62,17 @@ import { parser, enumUtils } from '@/utils';
                         {{ item.instruction }}
                     </div>
                     <div class="col" style="text-align: center;">
-                        <span class="badge bg-primary">
+                        <span class="badge bg-light-dark">
                             {{ enumUtils.status(item.status) }}
                         </span>
                     </div>
                     <div class="col" style="text-align: center;"    >
-                        <span class="badge bg-dark">
-                            {{ "Executed at: " + parser.parseTime(item.created_at) }}
+                        <span class="badge bg-light-dark">
+                            {{ "executed at: " + parser.parseTime(item.created_at) }}
                         </span>
                     </div>
                     <div class="col">
-                        <span class="badge bg-info">
+                        <span class="badge bg-light-dark">
                             execution time: {{ item.execution_time||'not set' }}
                         </span>
                     </div>
@@ -156,18 +156,18 @@ export default {
             this.checkExec();
         },
         getRowClassList(result) {
-            let list = "row shadow m-0 p-0 rounded my-3 p-1";
+            let list = "row shadow align-items-center m-0 p-0 rounded my-3 p-1";
             let bg = "bg-white";
 
             switch (result) {
                 case 2:
-                    bg = "bg-success text-light";
+                    bg = "bg-light-success text-light";
                     break;
                 case 3:
-                    bg = "bg-danger text-light";
+                    bg = "bg-light-danger text-light";
                     break;
                 case 4:
-                    bg = "bg-warning";
+                    bg = "bg-light-warning";
                     break;
             }
 
@@ -184,3 +184,21 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.bg-light-danger {
+    background-color: rgb(255, 119, 119);
+}
+
+.bg-light-success {
+    background-color: rgb(29, 165, 108);
+}
+
+.bg-light-warning {
+    background-color: rgb(255, 255, 147);
+}
+
+.bg-light-dark {
+    background-color: rgb(77, 77, 77);
+}
+</style>

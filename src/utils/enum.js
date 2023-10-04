@@ -7,13 +7,13 @@ function change() {
     return (input) => {
         switch (input) {
             case 1:
-            return "Initialized";
+            return "initialized";
             case 2:
-            return "Pending";
+            return "pending";
             case 3:
-            return "Done";
+            return "done";
             case 4:
-            return "Failed";
+            return "failed";
         } 
     }
 }
