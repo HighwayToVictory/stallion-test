@@ -175,7 +175,7 @@
 </template>
 
 <script>
-import { namespacesApi, userProjectsApi } from '@/api';
+import { projectsApi } from '@/api';
 import { useAlertStore } from '@/stores';
 import router from '@/router';
 
@@ -201,7 +201,7 @@ export default {
   },
   methods: {
     async createProject() {
-      await userProjectsApi.create(this.namespace.id, this.name, this.host, this.port, this.description, this.labels, this.params, this.endpoints, this.secure);
+      await projectsApi.create("", this.name, this.host, this.port, this.description, this.labels, this.params, this.endpoints, this.secure);
 
       this.name = "";
       this.host = "";
@@ -284,10 +284,6 @@ export default {
         this.endpoints.splice(index, 1);
       }
     }
-  },
-  async mounted() {
-    this.namespaces = await namespacesApi.get();
-    this.namespace = this.namespaces[0];
   }
 }
 </script>
