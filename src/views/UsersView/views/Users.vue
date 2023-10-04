@@ -74,7 +74,7 @@ import { enumUtils, parser } from '@/utils';
 </template>
 
 <script>
-import { adminUsersApi } from '@/api';
+import { usersApi } from '@/api';
 import { useAlertStore } from '@/stores';
 
 export default {
@@ -85,14 +85,15 @@ export default {
   },
   methods: {
     async deleteUser(id) {
-      await adminUsersApi.remove(id);
-      this.users = await adminUsersApi.get();
+      await usersApi.remove(id);
+      this.users = await usersApi.get();
+
       const alertStore = useAlertStore();
       alertStore.success(`User deleted!`);
     }
   },
   async mounted() {
-    this.users = await adminUsersApi.get();
+    this.users = await usersApi.get();
   }
 }
 </script>

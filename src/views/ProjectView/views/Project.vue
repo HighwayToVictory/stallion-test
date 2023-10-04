@@ -111,7 +111,7 @@ const authStore = useAuthStore();
 
 <script>
 import { useRoute } from 'vue-router';
-import { projectsApi, userProjectsApi } from '@/api';
+import { projectsApi } from '@/api';
 import { fetchWrapper } from '@/helpers';
 
 export default {
@@ -125,7 +125,7 @@ export default {
     },
     methods: {
         async download(id) {
-            const url = projectsApi.download(this.namespace_id, this.project_id, id);
+            const url = projectsApi.download(this.project_id, id);
 
             let file = await fetchWrapper.file(url);
             window.location.assign(file);
@@ -137,7 +137,7 @@ export default {
 
             this.executealbe = false;
 
-            await userProjectsApi.execute(this.namespace_id, this.project_id);
+            await projectsApi.execute(this.project_id);
         },
         checkExec() {
             const limit = this.project.documents.length;
@@ -153,7 +153,7 @@ export default {
             }
         },
         async reloadProject() {
-            this.project = await projectsApi.getSingle(this.namespace_id, this.project_id);
+            this.project = await projectsApi.get(this.project_id);
             this.checkExec();
         },
         getRowClassList(result) {
@@ -180,7 +180,7 @@ export default {
 
         this.namespace_id = route.params.namespace;
         this.project_id = route.params.id;
-        this.project = await projectsApi.getSingle(this.namespace_id, this.project_id);
+        this.project = await projectsApi.get(this.project_id);
 
         this.checkExec();
     }
