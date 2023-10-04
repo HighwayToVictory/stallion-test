@@ -13,14 +13,14 @@ const authStore = useAuthStore();
     </div>
     <div class="my-3">
       <div class="row m-0 g-2" style="grid-column-gap: 20px;">
-        <div class="col bg-light rounded p-3">
+        <div class="col bg-light shadow rounded p-3">
           <div style="text-align: justify;">
             This is the main dashboard. In this page you can see all of the system projects.
             In order to get more details about each projects, click on view project button.
             You execute projects in their page.
           </div>
         </div>
-        <div class="col p-3 bg-light rounded">
+        <div class="col p-3 bg-light rounded shadow">
           <div class="mb-3">
             Create a new project in order to perform your tests:
           </div>
@@ -35,7 +35,7 @@ const authStore = useAuthStore();
         </div>
       </div>
     </div>
-    <div class="bg-light rounded p-3 my-3">
+    <div class="bg-light rounded shadow p-3 my-3">
       <div>
         <div class="pb-2 d-flex justify-content-between">
           <div class="h4">

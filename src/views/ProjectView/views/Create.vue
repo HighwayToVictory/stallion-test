@@ -3,7 +3,7 @@
     <div class="h3 pb-2">
       Create Project
     </div>
-    <div class="bg-light rounded p-3">
+    <div class="bg-light shadow rounded p-3">
       <div class="mb-3">
         <div class="form-outline mb-4">
           <input type="text" v-model="name" id="name" class="form-control" placeholder="mysite ..." />

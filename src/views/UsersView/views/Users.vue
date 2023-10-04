@@ -8,13 +8,13 @@ import { enumUtils, parser } from '@/utils';
       Users
     </div>
     <div class="row p-0 m-0 mb-3" style="grid-column-gap: 20px;">
-      <div class="col bg-light rounded p-3" style="text-align: justify;">
+      <div class="col shadow bg-light rounded p-3" style="text-align: justify;">
         In users page you can see all of the system users. You can create new users
         or remove the existing ones. Since all users can have access to every component
         and every action, make sure to authorize your clients before giving them access
         to the application.
       </div>
-      <div class="col bg-light rounded p-3">
+      <div class="col shadow bg-light rounded p-3">
         <div class="mb-4">
           Create new users in order to give them suitable rules to work with application.
         </div>
@@ -45,7 +45,7 @@ import { enumUtils, parser } from '@/utils';
         </button>
       </div>
     </div>
-    <div class="bg-light rounded p-3 g-2">
+    <div class="bg-light shadow rounded p-3 g-2">
       <div class="h4">
         list of the system users
       </div>
