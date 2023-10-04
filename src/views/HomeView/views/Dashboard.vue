@@ -128,7 +128,7 @@ const authStore = useAuthStore();
 
 <script>
 import { useAuthStore } from '@/stores'
-import { projectsApi, namespacesApi, userProjectsApi } from '@/api';
+import { projectsApi } from '@/api';
 
 export default {
   data() {
@@ -145,15 +145,13 @@ export default {
   },
   methods: {
     async select(namespace) {
-      this.namespace = namespace;
-      
-      let tmp = await projectsApi.get(this.namespace.id);
+      let tmp = await projectsApi.getAll();
       this.projects = tmp.projects;
     },
     async deleteProject(id) {
-      await userProjectsApi.remove(this.namespace.id, id);
+      await projectsApi.remove(id);
       
-      let tmp = await projectsApi.get(this.namespace.id);
+      let tmp = await projectsApi.getAll();
       this.projects = tmp.projects;
     },
     compareObj(field, reverse) {
@@ -182,14 +180,8 @@ export default {
 
     this.user = authStore.username();
 
-    this.namespaces = await namespacesApi.get();
-
-    if (this.namespaces.length > 0) {
-      this.namespace = this.namespaces[0];
-
-      let tmp = await projectsApi.get(this.namespace.id);
-      this.projects = tmp.projects;
-    }
+    let tmp = await projectsApi.getAll();
+    this.projects = tmp.projects;
   },
   computed: {
     projectsList() {
