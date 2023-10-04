@@ -10,8 +10,8 @@ const authStore = useAuthStore();
 
 <template>
   <div>
-    <Alert style="position: fixed; left: 50%; transform: translate(-50%, 0); top: 20px;" />
-    <Navigation class="shadow" style="position: fixed; top: 0; width: 100%; height: 50px;" v-if="authStore.token" />
+    <Alert style="position: fixed; left: 50%; transform: translate(-50%, 0); top: 60px;" />
+    <Navigation class="shadow" style="position: fixed; top: 0; width: 100%; height: 60px;" v-if="authStore.token" />
     <div style="margin-top: 30px; min-height: -webkit-fill-available;">
       <RouterView />
     </div>
