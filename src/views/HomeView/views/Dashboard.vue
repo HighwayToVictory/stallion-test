@@ -7,23 +7,22 @@ const authStore = useAuthStore();
 </script>
 
 <template>
-  <div class="p-5">
+  <div class="p-5 rounded shadow m-5">
     <div class="h3 pb-2 mb-3">
       Dashboard
     </div>
-    <div class="bg-light rounded p-3">
-      <div style="text-align: justify;">
-        This is the main dashboard. You can select a namespace from available namespaces for you
-        and see the projects of that namespace. If you cannot see a namespace in your list, contact
-        to one of the admin users so that they add you to that namespace. You cannot see neither namespaces
-        that you are not belong to or their projects.
-      </div>
-    </div>
     <div class="my-3">
       <div class="row m-0 g-2" style="grid-column-gap: 20px;">
+        <div class="col bg-light rounded p-3">
+          <div style="text-align: justify;">
+            This is the main dashboard. In this page you can see all of the system projects.
+            In order to get more details about each projects, click on view project button.
+            You execute projects in their page.
+          </div>
+        </div>
         <div class="col p-3 bg-light rounded">
           <div class="mb-3">
-            Create a new project into your namespaces in order to perform your tests:
+            Create a new project in order to perform your tests:
           </div>
           <div>
             <RouterLink style="width: 100%;" to="/projects/new" type="button" class="btn btn-success btn-block">
@@ -69,7 +68,6 @@ const authStore = useAuthStore();
               <tr>
                 <th scope="col" style="text-align: center;">Name</th>
                 <th scope="col" style="text-align: center;">Created at</th>
-                <th scope="col" style="text-align: center;">Description</th>
                 <th scope="col" style="text-align: center;">Created by</th>
                 <th scope="col" style="text-align: center;">Actions</th>
               </tr>
@@ -81,9 +79,6 @@ const authStore = useAuthStore();
                 </td>
                 <td style="text-align: center;">
                   {{ parser.parseTime(project['created_at']) }}
-                </td>
-                <td style="text-align: center;">
-                  {{ project['description'] }}
                 </td>
                 <td style="text-align: center;">
                   {{  project['created_by']??'not set' }}
