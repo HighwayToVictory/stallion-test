@@ -80,6 +80,9 @@ import { parser, enumUtils } from '@/utils';
                         <a v-on:click="download(item.id)" class="btn btn-sm btn-light" download>
                             view log file
                         </a>
+                        <a v-on:click="rerun(item.id)" class="btn btn-sm btn-dark">
+                            rerun the test
+                        </a>
                     </div>
                 </div>
             </div>
@@ -116,7 +119,6 @@ import { fetchWrapper } from '@/helpers';
 export default {
     data() {
         return {
-            namespace_id: 0,
             project_id: 0,
             project: "",
             executealbe: false
@@ -139,6 +141,9 @@ export default {
             this.executealbe = false;
 
             await projectsApi.execute(this.project_id);
+        },
+        async rerun(id) {
+            await projectsApi.rerun(this.project_id, id);
         },
         checkExec() {
             const limit = this.project.documents.length;
