@@ -23,7 +23,7 @@ import { useAlertStore } from '@/stores'
 
 export default {
   mounted() {
-    const url = import.meta.env.VITE_API_URL;
+    const url = `${import.meta.env.VITE_API_URL}/health`;
     const alertStore = useAlertStore();
 
     fetch(url, {mode: 'no-cors'})

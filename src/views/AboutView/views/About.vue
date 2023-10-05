@@ -19,8 +19,8 @@
         Project
       </div>
       <div style="text-align: justify;">
-        In order to make a test process for a host you need to create a project in a namespace. Becarefull that all of
-        the users in that namespace can see the project and it's results. But only developers can create new projects
+        In order to make a test process for a host you need to create a project. Becarefull that all of
+        the users in the system can see the project and it's results. And they also can create new projects
         and execute the tests.
       </div>
     </div>
