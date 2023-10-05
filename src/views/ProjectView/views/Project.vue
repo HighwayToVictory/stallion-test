@@ -9,8 +9,13 @@ import { parser, enumUtils } from '@/utils';
         </div>
         <div class="bg-light shadow rounded p-3">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <div class="badge bg-dark">
-                    Target address: <b>{{ project.host }}</b>
+                <div>
+                    <span class="badge bg-dark" style="margin-right: 10px;">
+                        Target address: <b>{{ project.host }}</b>
+                    </span>
+                    <button class="badge btn bg-success" v-on:click="check_host()">
+                        check connection
+                    </button>
                 </div>
                 <span class="badge bg-secondary">
                     Created By <b>{{ project.creator }}</b> at {{ parser.parseTime(project.created_at) }}
@@ -126,6 +131,21 @@ export default {
         }
     },
     methods: {
+        check_host() {
+            const url = this.project.host;
+            const alertStore = useAlertStore();
+
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+            fetch(url, {mode: 'no-cors', signal: controller.signal})
+                .then(() => {
+                    alertStore.success("host is up.")
+                })
+                .catch(() => {
+                    alertStore.error("cannot access your project's host!");
+                });
+        },
         async download(id) {
             const url = projectsApi.download(this.project_id, id);
 
