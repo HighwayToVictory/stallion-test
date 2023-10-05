@@ -17,3 +17,22 @@ const authStore = useAuthStore();
     </div>
   </div>
 </template>
+
+<script>
+import { useAlertStore } from '@/stores'
+
+export default {
+  mounted() {
+    const url = import.meta.env.VITE_API_URL;
+    const alertStore = useAlertStore();
+
+    fetch(url, {mode: 'no-cors'})
+      .then(() => {
+        console.log('connected!');
+      })
+      .catch(() => {
+        alertStore.error("gateway server is down! you cannot perform any operations.");
+      });
+  }
+}
+</script>
