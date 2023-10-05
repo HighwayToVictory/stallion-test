@@ -131,19 +131,21 @@ export default {
         }
     },
     methods: {
-        check_host() {
+        async check_host() {
             const url = this.project.host;
             const alertStore = useAlertStore();
 
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), 5000);
 
-            fetch(url, {mode: 'no-cors', signal: controller.signal})
+            return fetch(url, {mode: 'no-cors', signal: controller.signal})
                 .then(() => {
-                    alertStore.success("host is up.")
+                    alertStore.success("host is up.");
+                    return true;
                 })
                 .catch(() => {
                     alertStore.error("cannot access your project's host!");
+                    return false;
                 });
         },
         async download(id) {
@@ -158,6 +160,16 @@ export default {
             if (!this.executealbe) {
                 return;
             }
+
+            const alertStore = useAlertStore();
+            alertStore.warning("wait for the host to get checked!");
+
+            const result = await this.check_host();
+            if (!result) {
+                return;
+            }
+
+            alertStore.warning("request send.");
 
             this.executealbe = false;
 
