@@ -73,11 +73,11 @@ import { parser, enumUtils } from '@/utils';
                     </div>
                     <div class="col">
                         <span class="badge bg-light-dark">
-                            execution time: {{ item.execution_time||'not set' }}
+                            {{ "execution time: (Ms) " + item.execution_time||'not set' }}
                         </span>
                     </div>
                     <div class="col" style="text-align: center;">
-                        <a v-on:click="download(item.id)" class="btn btn-sm btn-light" download>
+                        <a v-on:click="download(item.id)" style="margin-right: 5px;" class="btn btn-sm btn-light" download>
                             view log file
                         </a>
                         <a v-on:click="rerun(item.id)" class="btn btn-sm btn-dark">
@@ -100,7 +100,7 @@ import { parser, enumUtils } from '@/utils';
                 </svg>
                 {{ this.executealbe ? 'execute tests' : 'wait ...' }}
             </button>
-            <button v-if="!this.executealbe" class="btn btn-success mt-3" style="margin-inline-start: 5px;" v-on:click="reloadProject">
+            <button class="btn btn-success mt-3" style="margin-inline-start: 5px;" v-on:click="reloadProject">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi me-2 bi-arrow-counterclockwise" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
                     <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"/>
@@ -115,6 +115,7 @@ import { parser, enumUtils } from '@/utils';
 import { useRoute } from 'vue-router';
 import { projectsApi } from '@/api';
 import { fetchWrapper } from '@/helpers';
+import { useAlertStore } from '@/stores';
 
 export default {
     data() {
@@ -143,6 +144,9 @@ export default {
             await projectsApi.execute(this.project_id);
         },
         async rerun(id) {
+            const alertStore = useAlertStore();
+            alertStore.success("rerun request is send. click on reload!");
+
             await projectsApi.rerun(this.project_id, id);
         },
         checkExec() {
