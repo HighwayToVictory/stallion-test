@@ -153,7 +153,7 @@ export default {
 
             let file = await fetchWrapper.file(url);
             if (file != null) {
-                window.location.assign(file);
+                window.open(file, '_blank');
             }
         },
         async execute() {
