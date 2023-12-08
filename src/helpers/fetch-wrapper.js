@@ -38,9 +38,9 @@ function file() {
         };
 
         return fetch(url, requestOptions)
-            .then( res => res.blob() )
-            .then( blob => {
-                return window.URL.createObjectURL(blob);
+            .then( res => res.text() )
+            .then( address => {
+                return address;
             })
             .catch(error => {
                 console.log(error);

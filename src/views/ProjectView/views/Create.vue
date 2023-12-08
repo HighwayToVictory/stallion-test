@@ -174,12 +174,34 @@ export default {
       port: 80,
       secure: false,
       description: "",
-      endpoints: [],
+      endpoints: [
+        "/auth",
+        "/metrics",
+        "/health"
+      ],
       endpointValue: "",
-      labels: [],
+      labels: [
+        {
+          "key": "type",
+          "value": "http"
+        },
+        {
+          "key": "secure",
+          "value": "true"
+        },
+        {
+          "key": "database",
+          "value": "127.0.0.1:3306"
+        }
+      ],
       labelKey: "",
       labelValue: "",
-      params: [],
+      params: [
+        {
+          "key": "x-token",
+          "value": "****************"
+        }
+      ],
       paramKey: "",
       paramValue: ""
     }
