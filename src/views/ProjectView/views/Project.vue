@@ -134,7 +134,9 @@ export default {
         return {
             project_id: 0,
             project: "",
-            executealbe: false
+            executealbe: false,
+            liveWindow: null,
+            liveID: 0
         }
     },
     methods: {
@@ -164,23 +166,29 @@ export default {
             }
         },
         async liveTrack() {
-            let rsp = await liveApi.get(this.project_id, 0);
-            let newWin = window.open("about:blank", "live-tracking", "width=800,height=300");
+            let rsp = await liveApi.get(this.project_id, this.liveID);
 
-            newWin.document.write("<h2>Live Tracking</h2>");
+            if (this.liveWindow == null) {
+                this.liveWindow = window.open("about:blank", "live-tracking", "width=800,height=300");
+                this.liveWindow.document.write("<h2>Live Tracking</h2>");
 
-            if (rsp.length == 0) {
-                newWin.document.write("No events!");
+                if (rsp.length == 0) {
+                    this.liveWindow.document.write("No events!");
 
-                return
+                    return;
+                }
             }
 
             rsp.forEach((el) => {
-                let message = `${el['time']}: [EID-${el['id']}][T: ${el['type']}][Service: ${el['service']}] ${el['description']}`
+                let message = `${el['time']}: [EID-${el['id']}][T: ${el['type']}][Service: ${el['service']}] ${el['description']}`;
 
-                newWin.document.write(message);
-                newWin.document.write("<br />");
+                this.liveWindow.document.write(message);
+                this.liveWindow.document.write("<br />");
+
+                this.liveID = el['id'];
             })
+
+            setTimeout(this.liveTrack, 1000);
         },
         async execute() {
             if (!this.executealbe) {
