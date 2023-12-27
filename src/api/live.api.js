@@ -4,7 +4,7 @@ const baseUrl = `${import.meta.env.VITE_API_URL}/live-tracking`;
 
 
 // projectsApi manages the projects endpoints
-export const projectsApi = {
+export const liveApi = {
     get: get(),
 };
 
