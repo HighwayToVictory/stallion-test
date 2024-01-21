@@ -180,10 +180,30 @@ export default {
             }
 
             rsp.forEach((el) => {
-                let message = `${el['time']}: [EID-${el['id']}][T: ${el['type']}][Service: ${el['service']}] ${el['description']}`;
+                let meta = `At ${el['time']}, EventId=${el['id']}, From: ${el['service']}`
+                let message = `${el['description']}`;
 
-                this.liveWindow.document.write(message);
-                this.liveWindow.document.write("<br />");
+                let div = document.createElement("div");
+
+                if (el['type'] === "Successful event") {
+                    div.style.color = "green";
+                } else if (el['type'] === "In-progress event") {
+                    div.style.color = "gray";
+                } else if (el['type'] === "Warning") {
+                    div.style.color = "red";
+                }
+
+                let metaDiv = document.createElement("div");
+                metaDiv.innerText = meta;
+
+                let messageDiv = document.createElement("div");
+                messageDiv.innerText = message;
+
+                div.appendChild(metaDiv);
+                div.appendChild(messageDiv);
+                div.appendChild(document.createElement("br"));
+
+                this.liveWindow.document.write(div.outerHTML.toString());
 
                 this.liveID = el['id'];
             })
