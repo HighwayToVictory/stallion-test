@@ -8,7 +8,6 @@ import projectsRoutes from './projects.routes';
 
 import { Home, Dashboard } from '@/views/HomeView';
 import { Login } from '@/views/LoginView';
-import { About } from '@/views/AboutView';
 
 
 const router = createRouter({
@@ -31,14 +30,6 @@ const router = createRouter({
       path: '/dashboard',
       name: 'dashboard',
       component: Dashboard,
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
-      path: '/about',
-      name: 'about',
-      component: About,
       meta: {
         requiresAuth: true
       }
