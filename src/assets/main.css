@@ -66,3 +66,11 @@ body, #app, .container {
 .round-border {
   border-radius: 10px;
 }
+
+.nav-link:hover {
+  opacity: 0.5 !important;
+}
+
+.nav-link.active {
+  background-color: #dc3545 !important;
+}
